@@ -1,184 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Portfolio | Digital Product Services</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=JetBrains+Mono:wght@300&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sight-link.eco — Xiaofei</title>
+<meta name="description" content="Xiaofei's personal site: recording growth and projects.">
+<style>
+  :root {
+    --bg: #fafaf9;
+    --text: #111111;
+    --muted: #6b6b6b;
+    --accent: #f97316;
+    --border: #e5e5e3;
+    --card: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Hero ---------- */
+  header { padding: 96px 0 64px; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 700; font-size: 15px; letter-spacing: 0.5px;
+    color: var(--text); text-decoration: none; margin-bottom: 40px;
+  }
+  .logo .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); display: inline-block;
+  }
+  header h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 16px; }
+  header h1 .accent { color: var(--accent); }
+  header p.tagline { font-size: 18px; color: var(--muted); max-width: 520px; }
+
+  /* ---------- Sections ---------- */
+  section { padding: 40px 0; border-top: 1px solid var(--border); }
+  h2 {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--muted); margin-bottom: 28px;
+  }
+  h2 .num { color: var(--accent); margin-right: 8px; }
+
+  /* ---------- Projects ---------- */
+  .project { display: block; padding: 18px 0; border-bottom: 1px solid var(--border); text-decoration: none; }
+  .project:last-child { border-bottom: none; }
+  .project:hover .p-name { color: var(--accent); }
+  .p-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .p-name { font-size: 17px; font-weight: 600; color: var(--text); transition: color .15s; }
+  .p-year { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .p-desc { font-size: 15px; color: var(--muted); margin-top: 4px; }
+
+  /* ---------- Growth log ---------- */
+  .log { list-style: none; }
+  .log li { position: relative; padding: 0 0 28px 28px; }
+  .log li::before {
+    content: ""; position: absolute; left: 0; top: 7px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--accent);
+  }
+  .log li::after {
+    content: ""; position: absolute; left: 4px; top: 20px; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .log li:last-child::after { display: none; }
+  .log time { font-size: 13px; color: var(--muted); font-weight: 600; display: block; margin-bottom: 2px; }
+  .log .log-title { font-size: 16px; font-weight: 600; }
+  .log .log-desc { font-size: 15px; color: var(--muted); }
+
+  /* ---------- Updates timeline (levels.io style, grouped by year) ---------- */
+  .updates { max-width: 620px; }
+  .u-year {
+    font-size: 26px; font-weight: 800; letter-spacing: -0.5px;
+    margin: 36px 0 16px; color: var(--text);
+  }
+  .u-year:first-child { margin-top: 0; }
+  .u-item { position: relative; padding: 0 0 26px 26px; }
+  .u-item::before {
+    content: ""; position: absolute; left: 0; top: 7px;
+    width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
+  }
+  .u-item::after {
+    content: ""; position: absolute; left: 4px; top: 20px; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .u-item:last-child::after { display: none; }
+  .u-date { font-size: 13px; color: var(--muted); font-weight: 600; display: block; margin-bottom: 2px; }
+  .u-text { font-size: 15px; color: var(--text); }
+  .u-text a { color: var(--accent); }
+  .u-img {
+    display: block; max-width: 360px; width: 100%; border-radius: 10px;
+    margin-top: 10px; border: 1px solid var(--border);
+  }
+  .u-tag {
+    display: inline-block; margin-left: 8px; padding: 1px 8px;
+    font-size: 11px; font-weight: 700; border-radius: 999px;
+    background: #fff7ed; color: var(--accent); vertical-align: 2px;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .contact-links a {
+    display: inline-block; padding: 9px 20px;
+    border: 1px solid var(--border); border-radius: 999px;
+    background: var(--card); color: var(--text);
+    font-size: 14px; font-weight: 500; text-decoration: none;
+    transition: all .15s;
+  }
+  .contact-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 48px 0 64px; border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--muted);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    header { padding: 64px 0 48px; }
+    header h1 { font-size: 28px; }
+    .p-row { flex-direction: column; gap: 2px; }
+  }
+</style>
 </head>
-<body class="loading">
-    
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+<body>
+<div class="wrap">
 
-    <!-- Noise Overlay -->
-    <div class="noise"></div>
+  <header id="top">
+    <a class="logo" href="#top"><span class="dot"></span>SIGHT-LINK.ECO</a>
+    <h1>Hi, I'm Xiaofei<span class="accent">.</span></h1>
+    <p style="margin-bottom: 24px;"><a href="projects.html" style="color: var(--accent); font-weight: 600; text-decoration: none;">→ All projects</a> · <a href="stats.html" style="color: var(--accent); font-weight: 600; text-decoration: none;">Stats &amp; portfolio</a></p>
+    <p class="tagline">
+      Recording growth, shipping consistently. This is my log of projects
+      and everything I learn along the way — from brain MRI denoising
+      research to every small iteration.
+    </p>
+  </header>
 
-    <!-- Navigation -->
-    <nav class="nav-container">
-        <div class="nav-logo">
-            <span class="mono">[ SYMBOL ]</span>
-        </div>
-        <div class="nav-links">
-            <a href="#horizon" class="nav-link">01 // Horizon</a>
-            <a href="#blueprint" class="nav-link">02 // Blueprint</a>
-            <a href="#matrix" class="nav-link">03 // Matrix</a>
-            <a href="#trajectory" class="nav-link">04 // Trajectory</a>
-            <a href="#connection" class="nav-link">05 // Connection</a>
-        </div>
-    </nav>
+  <!-- ================= Projects ================= -->
+  <section id="projects">
+    <h2><span class="num">01</span>Projects</h2>
 
-    <main class="scroll-container">
-        
-        <!-- SECTION 01: THE HORIZON -->
-        <section id="horizon" class="section hero">
-            <div class="grid-overlay"></div>
-            <div class="section-content">
-                <div class="tech-tag mono" data-reveal>[ 01 // ORIGIN ]</div>
-                <h1 class="hero-title">
-                    <span class="line">DIGITAL</span>
-                    <span class="line italic">ARCHITECT</span>
-                </h1>
-                <p class="hero-subtitle mono" data-reveal>Crafting data-driven narratives for a sustainable future.</p>
-                <div class="scroll-indicator mono">SCROLL TO EXPLORE</div>
-            </div>
-            <div class="hero-bg-shapes">
-                <svg viewBox="0 0 100 100" class="hero-svg">
-                    <circle cx="50" cy="50" r="45" class="draw-path" />
-                    <line x1="10" y1="50" x2="90" y2="50" class="draw-path" />
-                    <line x1="50" y1="10" x2="50" y2="90" class="draw-path" />
-                </svg>
-            </div>
-        </section>
+    <a class="project" href="#" target="_blank" rel="noopener">
+      <div class="p-row">
+        <span class="p-name">PP-CDiff — Pathology-Preserving Conditional Diffusion</span>
+        <span class="p-year">2026</span>
+      </div>
+      <p class="p-desc">Brain MRI denoising that preserves tumor-discriminative information. Noise-aware conditional diffusion with CBAM-style attention.</p>
+    </a>
 
-        <!-- SECTION 02: THE BLUEPRINT -->
-        <section id="blueprint" class="section about">
-            <div class="section-content split">
-                <div class="about-visual">
-                    <div class="visual-frame">
-                        <svg viewBox="0 0 200 200" class="about-svg">
-                            <rect x="20" y="20" width="160" height="160" class="draw-path" />
-                            <path d="M20 20 L180 180 M180 20 L20 180" class="draw-path" />
-                            <circle cx="100" cy="100" r="40" class="draw-path" />
-                        </svg>
-                    </div>
-                    <div class="tech-tag mono">[ STATE: ACTIVE ]</div>
-                </div>
-                <div class="about-text">
-                    <div class="tech-tag mono" data-reveal>[ 02 // BLUEPRINT ]</div>
-                    <h2 class="section-title" data-reveal>A Synthesis of Data & Design.</h2>
-                    <p class="section-desc" data-reveal>
-                        Bridging the gap between raw information and meaningful impact. 
-                        Specializing in digital product strategy, ESG compliance, and data-driven content 
-                        that resonates with precision and purpose.
-                    </p>
-                </div>
-            </div>
-        </section>
+    <a class="project" href="#" target="_blank" rel="noopener">
+      <div class="p-row">
+        <span class="p-name">Sight-link.eco — This Site</span>
+        <span class="p-year">2026</span>
+      </div>
+      <p class="p-desc">A minimal one-page personal homepage for recording growth and projects. As simple and direct as levels.io.</p>
+    </a>
 
-        <!-- SECTION 03: THE MATRIX -->
-        <section id="matrix" class="section services">
-            <div class="section-content">
-                <div class="tech-tag mono" data-reveal>[ 03 // MATRIX ]</div>
-                <h2 class="section-title center" data-reveal>Core Capabilities.</h2>
-                <div class="service-grid">
-                    <div class="service-card" data-reveal>
-                        <div class="card-num mono">01.</div>
-                        <h3 class="card-title">Data Analytics</h3>
-                        <p class="card-desc">Uncovering patterns within complexity to drive informed decision-making and strategic growth.</p>
-                        <div class="card-tag mono">#PRECISION</div>
-                    </div>
-                    <div class="service-card" data-reveal>
-                        <div class="card-num mono">02.</div>
-                        <h3 class="card-title">ESG Strategy</h3>
-                        <p class="card-desc">Integrating environmental, social, and governance frameworks into the core of digital products.</p>
-                        <div class="card-tag mono">#IMPACT</div>
-                    </div>
-                    <div class="service-card" data-reveal>
-                        <div class="card-num mono">03.</div>
-                        <h3 class="card-title">Content Design</h3>
-                        <p class="card-desc">Crafting high-fidelity narratives and critical reviews that bridge technology and human experience.</p>
-                        <div class="card-tag mono">#STRATEGY</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <a class="project" href="#" target="_blank" rel="noopener">
+      <div class="p-row">
+        <span class="p-name">Project Three (placeholder)</span>
+        <span class="p-year">2025</span>
+      </div>
+      <p class="p-desc">One sentence on what this project does and what problem it solves. Replace with your real project.</p>
+    </a>
+  </section>
 
-        <!-- SECTION 04: THE TRAJECTORY -->
-        <section id="trajectory" class="section timeline">
-            <div class="section-content">
-                <div class="tech-tag mono" data-reveal>[ 04 // TRAJECTORY ]</div>
-                <h2 class="section-title" data-reveal>Milestones & Growth.</h2>
-                <div class="timeline-container">
-                    <div class="timeline-line"></div>
-                    <div class="timeline-items">
-                        <div class="timeline-item" data-reveal>
-                            <div class="time mono">2024 — PRESENT</div>
-                            <div class="event">Lead Digital Product Strategist</div>
-                        </div>
-                        <div class="timeline-item" data-reveal>
-                            <div class="time mono">2022 — 2023</div>
-                            <div class="event">ESG Framework Development</div>
-                        </div>
-                        <div class="timeline-item" data-reveal>
-                            <div class="time mono">2020 — 2022</div>
-                            <div class="event">Data Analytics Specialization</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- ================= Updates timeline (auto-rendered from updates.json) ================= -->
+  <section id="updates">
+    <h2><span class="num">02</span>Updates</h2>
+    <div class="updates" id="updates-list"><div style="color: var(--muted); font-size: 14px;">Loading updates…</div></div>
+  </section>
 
-        <!-- SECTION 05: THE CONNECTION -->
-        <section id="connection" class="section contact">
-            <div class="section-content">
-                <div class="tech-tag mono" data-reveal>[ 05 // CONNECTION ]</div>
-                <h2 class="section-title" data-reveal>Let's interface.</h2>
-                <form class="contact-form" onsubmit="return false;">
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label class="mono">NAME</label>
-                            <input type="text" placeholder="Your Name">
-                        </div>
-                        <div class="input-group">
-                            <label class="mono">EMAIL</label>
-                            <input type="email" placeholder="hello@example.com">
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label class="mono">MESSAGE</label>
-                        <textarea rows="4" placeholder="Tell me about your project"></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn mono">INITIALIZE_CONTACT</button>
-                </form>
-                
-                <footer class="footer-meta">
-                    <div class="meta-item">
-                        <span class="mono">LOCATION</span>
-                        <span id="loc-data">SHANGHAI, CN // 31.23° N</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="mono">TIME</span>
-                        <span id="time-data" class="mono">00:00:00:000</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="mono">SOCIAL</span>
-                        <div class="social-links">
-                            <a href="#">LN</a>
-                            <a href="#">TW</a>
-                            <a href="#">IG</a>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </section>
-    </main>
+  <!-- ================= Contact ================= -->
+  <section id="contact">
+    <h2><span class="num">03</span>Contact</h2>
+    <div class="contact-links">
+      <a href="mailto:you@example.com">✉ Email</a>
+      <a href="https://github.com/sight-link" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://x.com/yourname" target="_blank" rel="noopener">X / Twitter</a>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <footer>
+    <span>© 2026 Xiaofei · Sight-link.eco</span>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+</div>
+
+<script>
+  // Updates timeline: rendered from updates.json, grouped by year (levels.io style).
+  // To post a new update, add one entry to updates.json — nothing else to touch.
+  async function loadUpdates() {
+    const el = document.getElementById("updates-list");
+    try {
+      const res = await fetch("updates.json");
+      if (!res.ok) throw new Error(res.status);
+      const items = await res.json();
+      if (!Array.isArray(items) || !items.length) {
+        el.textContent = "No updates yet.";
+        return;
+      }
+      items.sort((a, b) => b.date.localeCompare(a.date));
+
+      const esc = s => String(s).replace(/[&<>"]/g,
+        c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+      const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      const fmtDate = d => {
+        const [y, m, day] = d.split("-");
+        return `${MONTHS[+m - 1]} ${+day}, ${y}`;
+      };
+
+      let html = "", year = "";
+      for (const it of items) {
+        const y = it.date.slice(0, 4);
+        if (y !== year) { year = y; html += `<div class="u-year">${y}</div>`; }
+        const text = it.link
+          ? esc(it.text).replace(/\[link\]/, `<a href="${esc(it.link)}" target="_blank" rel="noopener">link&nbsp;↗</a>`)
+          : esc(it.text);
+        html += `
+          <div class="u-item">
+            <span class="u-date">${fmtDate(it.date)}${it.tag ? `<span class="u-tag">${esc(it.tag)}</span>` : ""}</span>
+            <div class="u-text">${text}</div>
+            ${it.image ? `<img class="u-img" src="${esc(it.image)}" alt="update image" loading="lazy">` : ""}
+          </div>`;
+      }
+      el.innerHTML = html;
+    } catch (e) {
+      el.innerHTML = '<div style="color: var(--muted); font-size: 14px;">Updates unavailable when opened directly from disk — deploy to GitHub Pages, or serve locally with <code>python -m http.server</code>.</div>';
+    }
+  }
+  loadUpdates();
+</script>
 </body>
 </html>
