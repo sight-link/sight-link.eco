@@ -1,0 +1,30 @@
+[
+   {
+      "date": "2026-02-23",
+      "text": "The festival romance in the trillion-yuan district...",
+      "image": "images/moment-260223.jpg.jpg",
+      "link": "",
+      "tag": "life"
+  },
+  {
+    "date": "2026-08-17",
+    "text": "Sight-link.eco 上线了:个人主页 + 项目货架 + GitHub 数据面板,全部手写,零框架。",
+    "image": "",
+    "link": "",
+    "tag": "milestone"
+  },
+  {
+    "date": "2026-08-15",
+    "text": "PP-CDiff 消融实验设计定稿:7 个扩散变体、3 个种子、2 种噪声、3 档 DDIM 步数。准备迁移到云 GPU 跑完整实验。",
+    "image": "",
+    "link": "",
+    "tag": "research"
+  },
+  {
+    "date": "2026-08-10",
+    "text": "把 Colab 实验迁到 Kaggle,免费 30 小时 GPU/周,够跑主实验了。(这条是示例,替换成你的真实动态)",
+    "image": "",
+    "link": "",
+    "tag": "note"
+  }
+]

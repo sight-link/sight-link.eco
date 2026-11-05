@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stats & Portfolio — Sight-link.eco</title>
+<meta name="description" content="Xiaofei's stats and portfolio dashboard.">
+<style>
+  :root {
+    --bg: #fafaf9;
+    --text: #111111;
+    --muted: #6b6b6b;
+    --accent: #f97316;
+    --border: #e5e5e3;
+    --card: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Header ---------- */
+  header { padding: 72px 0 48px; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 700; font-size: 15px; letter-spacing: 0.5px;
+    color: var(--text); text-decoration: none; margin-bottom: 36px;
+  }
+  .logo .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); display: inline-block;
+  }
+  header h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
+  header h1 .accent { color: var(--accent); }
+  header p { font-size: 17px; color: var(--muted); max-width: 560px; }
+
+  /* ---------- Section titles ---------- */
+  h2 {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--muted);
+    margin: 48px 0 20px; padding-top: 40px; border-top: 1px solid var(--border);
+  }
+  h2 .num { color: var(--accent); margin-right: 8px; }
+
+  /* ---------- Stats grid (levels.io/stats style) ---------- */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 20px 18px;
+  }
+  .stat .value {
+    font-size: 34px; font-weight: 800; letter-spacing: -1px;
+    font-variant-numeric: tabular-nums; line-height: 1.15;
+  }
+  .stat .value .unit { font-size: 16px; font-weight: 600; color: var(--muted); margin-left: 4px; }
+  .stat .label { font-size: 13px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
+  .stat .trend { font-size: 13px; margin-top: 8px; color: var(--accent); font-weight: 600; }
+  .bar {
+    height: 6px; border-radius: 3px; background: var(--border);
+    margin-top: 12px; overflow: hidden;
+  }
+  .bar > span { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+
+  /* ---------- Portfolio grid ---------- */
+  .portfolio { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color .15s, transform .15s;
+    display: flex; flex-direction: column;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card .thumb {
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #fff7ed, #ffedd5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+  }
+  .card .body { padding: 16px 18px 18px; flex: 1; }
+  .card .c-title { font-size: 16px; font-weight: 700; }
+  .card .c-desc { font-size: 14px; color: var(--muted); margin-top: 4px; }
+  .card .c-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 14px; font-size: 12px; color: var(--muted); font-weight: 600;
+  }
+  .tag {
+    display: inline-block; padding: 2px 10px; border-radius: 999px;
+    background: #fff7ed; color: var(--accent); font-size: 12px; font-weight: 600;
+  }
+
+  /* ---------- Skills / stack meters ---------- */
+  .meters { display: grid; gap: 14px; max-width: 560px; }
+  .meter .m-row { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; }
+  .meter .m-row span:last-child { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* ---------- GitHub repos ---------- */
+  #gh-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+  .repo {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    text-decoration: none; color: var(--text);
+    display: flex; flex-direction: column; gap: 8px;
+    transition: border-color .15s, transform .15s;
+  }
+  .repo:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .repo .r-title { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+  .repo .r-desc { font-size: 13px; color: var(--muted); flex: 1; }
+  .repo .r-meta { display: flex; gap: 14px; font-size: 12px; color: var(--muted); font-weight: 600; }
+  .repo-loading { color: var(--muted); font-size: 14px; padding: 12px 0; }
+
+  /* ---------- Word cloud ---------- */
+  .cloud { max-width: 680px; line-height: 2; }
+  .cloud span { margin-right: 14px; color: var(--muted); transition: color .15s; cursor: default; }
+  .cloud span:hover { color: var(--accent); }
+
+  /* ---------- Footer ---------- */
+  footer {
+    margin-top: 48px;
+    padding: 40px 0 64px; border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--muted);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header id="top">
+    <a class="logo" href="index.html"><span class="dot"></span>SIGHT-LINK.ECO</a>
+    <h1>Stats<span class="accent">.</span></h1>
+    <p>What I've built and how it's going — numbers first, then the work itself.</p>
+  </header>
+
+  <!-- ================= Key numbers ================= -->
+  <h2><span class="num">01</span>By the numbers</h2>
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="value">4</div>
+      <div class="label">Projects shipped</div>
+      <div class="trend">+1 this year</div>
+    </div>
+    <div class="stat">
+      <div class="value">1<span class="unit">paper</span></div>
+      <div class="label">In progress</div>
+      <div class="trend">PP-CDiff</div>
+    </div>
+    <div class="stat">
+      <div class="value">7,200</div>
+      <div class="label">MRI images processed</div>
+      <div class="bar"><span style="width: 100%"></span></div>
+    </div>
+    <div class="stat">
+      <div class="value">3</div>
+      <div class="label">Random seeds per model</div>
+      <div class="trend">Reproducibility</div>
+    </div>
+    <div class="stat">
+      <div class="value">100<span class="unit">M+</span></div>
+      <div class="label">GPU hours saved</div>
+      <div class="bar"><span style="width: 62%"></span></div>
+    </div>
+  </div>
+
+  <!-- ================= Portfolio ================= -->
+  <h2><span class="num">02</span>Portfolio</h2>
+  <div class="portfolio">
+    <a class="card" href="#" target="_blank" rel="noopener">
+      <div class="thumb">🧠</div>
+      <div class="body">
+        <div class="c-title">PP-CDiff</div>
+        <p class="c-desc">Pathology-preserving conditional diffusion for brain MRI denoising.</p>
+        <div class="c-meta"><span class="tag">Research</span><span>2026</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="#" target="_blank" rel="noopener">
+      <div class="thumb">🌐</div>
+      <div class="body">
+        <div class="c-title">Sight-link.eco</div>
+        <p class="c-desc">This site — a minimal homepage and stats dashboard, built from scratch.</p>
+        <div class="c-meta"><span class="tag">Web</span><span>2026</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="#" target="_blank" rel="noopener">
+      <div class="thumb">📊</div>
+      <div class="body">
+        <div class="c-title">Project Three</div>
+        <p class="c-desc">Replace with your real project: one sentence on what it does.</p>
+        <div class="c-meta"><span class="tag">Tool</span><span>2025</span></div>
+      </div>
+    </a>
+
+    <a class="card" href="#" target="_blank" rel="noopener">
+      <div class="thumb">🧪</div>
+      <div class="body">
+        <div class="c-title">Project Four</div>
+        <p class="c-desc">Replace with your real project: one sentence on what it does.</p>
+        <div class="c-meta"><span class="tag">Experiment</span><span>2025</span></div>
+      </div>
+    </a>
+  </div>
+
+  <!-- ================= GitHub projects (auto-loaded) ================= -->
+  <h2><span class="num">03</span>Live from GitHub</h2>
+  <div id="gh-grid"><div class="repo-loading">Loading repositories…</div></div>
+
+  <!-- ================= Stack / skills ================= -->
+  <h2><span class="num">04</span>Stack</h2>
+  <div class="meters">
+    <div class="meter">
+      <div class="m-row"><span>PyTorch & Diffusion Models</span><span>90%</span></div>
+      <div class="bar"><span style="width: 90%"></span></div>
+    </div>
+    <div class="meter">
+      <div class="m-row"><span>Medical Image Analysis</span><span>80%</span></div>
+      <div class="bar"><span style="width: 80%"></span></div>
+    </div>
+    <div class="meter">
+      <div class="m-row"><span>Python / Scientific Computing</span><span>95%</span></div>
+      <div class="bar"><span style="width: 95%"></span></div>
+    </div>
+    <div class="meter">
+      <div class="m-row"><span>Web Development</span><span>40%</span></div>
+      <div class="bar"><span style="width: 40%"></span></div>
+    </div>
+  </div>
+
+  <!-- ================= Keyword cloud ================= -->
+  <h2><span class="num">05</span>Most used words</h2>
+  <div class="cloud" id="word-cloud"></div>
+
+  <footer>
+    <span>© 2026 Xiaofei · Sight-link.eco</span>
+    <a href="index.html">← Back home</a>
+    <a href="projects.html">All projects →</a>
+  </footer>
+
+</div>
+
+<script>
+  // Replace with your GitHub username — the page then updates itself
+  // whenever you push new repositories.
+  const GITHUB_USERNAME = "sight-link";
+  const MAX_REPOS = 6;
+
+  const LANG_COLORS = {
+    Python: "#3572A5", JavaScript: "#f1e05a", TypeScript: "#3178c6",
+    HTML: "#e34c26", CSS: "#563d7c", Jupyter: "#DA5B0B",
+    "Jupyter Notebook": "#DA5B0B", C: "#555555", "C++": "#f34b7d",
+    Go: "#00ADD8", Rust: "#dea584", Java: "#b07219", Shell: "#89e051",
+  };
+
+  async function loadRepos() {
+    const grid = document.getElementById("gh-grid");
+    try {
+      const res = await fetch(
+        `https://api.github.com/users/${GITHUB_USERNAME}/repos` +
+        `?sort=updated&per_page=100`,
+        { headers: { Accept: "application/vnd.github+json" } }
+      );
+      if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+      const repos = await res.json();
+
+      const shown = repos
+        .filter(r => !r.fork)
+        .sort((a, b) => b.stargazers_count - a.stargazers_count
+                        || new Date(b.pushed_at) - new Date(a.pushed_at))
+        .slice(0, MAX_REPOS);
+
+      if (!shown.length) {
+        grid.innerHTML = '<div class="repo-loading">No public repositories found.</div>';
+        return;
+      }
+
+      grid.innerHTML = shown.map(r => {
+        const color = LANG_COLORS[r.language] || "#999999";
+        return `
+          <a class="repo" href="${r.html_url}" target="_blank" rel="noopener">
+            <div class="r-title">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="color:var(--muted)">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+              </svg>
+              ${r.name}
+            </div>
+            <div class="r-desc">${r.description || "No description provided."}</div>
+            <div class="r-meta">
+              ${r.language ? `<span class="lang" style="--c:${color}"><span class="lang" style="color:${color}">●</span>&nbsp;${r.language}</span>` : ""}
+              <span>★ ${r.stargazers_count}</span>
+              <span>${new Date(r.pushed_at).toISOString().slice(0, 10)}</span>
+            </div>
+          </a>`;
+      }).join("");
+
+      renderCloud(repos);
+    } catch (e) {
+      grid.innerHTML =
+        '<div class="repo-loading">Could not load GitHub data. ' +
+        'Set <code>GITHUB_USERNAME</code> in stats.html.</div>';
+    }
+  }
+
+  // Word cloud from repo descriptions + names (levels.io "Most used words" style)
+  const STOPWORDS = new Set(["a","an","the","and","or","of","for","with","to","in","on","by","from","using","based","my","is","are","as","at","it","its","this","that","be","was","were","how","what","data",""]);
+  function renderCloud(repos) {
+    const counts = {};
+    for (const r of repos) {
+      const words = (r.name + " " + (r.description || ""))
+        .replace(/[-_/]|(?<=[a-z])(?=[A-Z])/g, " ")
+        .toLowerCase()
+        .match(/[a-z]{3,}/g) || [];
+      for (const w of words) {
+        if (!STOPWORDS.has(w)) counts[w] = (counts[w] || 0) + 1;
+      }
+    }
+    const top = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 30);
+    if (!top.length) { document.getElementById("word-cloud").textContent = "No descriptions to analyze yet."; return; }
+    const max = top[0][1], min = top[top.length - 1][1];
+    document.getElementById("word-cloud").innerHTML = top.map(([w, n]) => {
+      const t = max === min ? 0.6 : (n - min) / (max - min);
+      const size = (14 + t * 24).toFixed(0);
+      const weight = t > 0.66 ? 800 : t > 0.33 ? 600 : 500;
+      return `<span style="font-size:${size}px;font-weight:${weight}">${w}</span>`;
+    }).join("");
+  }
+
+  loadRepos();
+</script>
+</body>
+</html>

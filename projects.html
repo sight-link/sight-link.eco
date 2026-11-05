@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Sight-link.eco</title>
+<meta name="description" content="Everything I've built and plan to build.">
+<style>
+  :root {
+    --bg: #fafaf9;
+    --text: #111111;
+    --muted: #6b6b6b;
+    --accent: #f97316;
+    --border: #e5e5e3;
+    --card: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Header ---------- */
+  header { padding: 72px 0 48px; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 700; font-size: 15px; letter-spacing: 0.5px;
+    color: var(--text); text-decoration: none; margin-bottom: 36px;
+  }
+  .logo .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); display: inline-block;
+  }
+  header h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
+  header h1 .accent { color: var(--accent); }
+  header p { font-size: 17px; color: var(--muted); max-width: 540px; }
+
+  /* ---------- Sections ---------- */
+  section { padding: 40px 0; border-top: 1px solid var(--border); }
+  h2 {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--muted); margin-bottom: 24px;
+  }
+  h2 .num { color: var(--accent); margin-right: 8px; }
+  h2 .count { float: right; color: var(--border); font-size: 15px; letter-spacing: 0; }
+
+  /* ---------- Project entries (levels.io style list) ---------- */
+  .entry {
+    display: block; padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+  }
+  .entry:last-child { border-bottom: none; }
+  .entry:hover .e-title { color: var(--accent); }
+  .e-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .e-title { font-size: 19px; font-weight: 700; color: var(--text); transition: color .15s; }
+  .e-year { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .e-desc { font-size: 15px; color: var(--muted); margin-top: 4px; max-width: 560px; }
+  .e-link { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 8px; display: inline-block; }
+
+  /* status badges */
+  .badge {
+    display: inline-block; padding: 1px 10px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    vertical-align: 2px;
+  }
+  .badge.live    { background: #ecfdf5; color: #059669; }
+  .badge.wip     { background: #fff7ed; color: #f97316; }
+  .badge.planned { background: #f3f4f6; color: #6b7280; }
+
+  /* emoji icon variant for bigger showcase items */
+  .showcase .entry { padding: 24px 0; }
+  .showcase .e-title { font-size: 22px; }
+  .e-icon { margin-right: 10px; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 40px 0 64px; border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--muted);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header id="top">
+    <a class="logo" href="index.html"><span class="dot"></span>SIGHT-LINK.ECO</a>
+    <h1>Projects<span class="accent">.</span></h1>
+    <p>Everything I've built — shipped, in progress, or still an idea.
+       Some live on GitHub, some don't. All of them live here.</p>
+  </header>
+
+  <!-- ================= Flagship / big projects ================= -->
+  <section class="showcase">
+    <h2><span class="num">01</span>Flagship projects <span class="count">1</span></h2>
+
+    <a class="entry" href="#" target="_blank" rel="noopener">
+      <div class="e-head">
+        <span class="e-title"><span class="e-icon">🧠</span>PP-CDiff</span>
+        <span class="badge wip">In progress</span>
+        <span class="e-year">2026</span>
+      </div>
+      <p class="e-desc">Pathology-preserving conditional diffusion for brain MRI denoising. Research paper in progress — noise-aware diffusion that keeps tumor-discriminative information intact.</p>
+      <span class="e-link">→ Read the paper (coming)</span>
+    </a>
+  </section>
+
+  <!-- ================= Shipped ================= -->
+  <section>
+    <h2><span class="num">02</span>Shipped <span class="count">1</span></h2>
+
+    <a class="entry" href="#" target="_blank" rel="noopener">
+      <div class="e-head">
+        <span class="e-title"><span class="e-icon">🌐</span>Sight-link.eco</span>
+        <span class="badge live">Live</span>
+        <span class="e-year">2026</span>
+      </div>
+      <p class="e-desc">This site — homepage, live GitHub dashboard and project shelf. Hand-built, zero frameworks, loads instantly.</p>
+      <span class="e-link">→ Visit</span>
+    </a>
+
+    <!-- Add shipped projects by copying the block above.
+         For projects without a link yet, remove the href="#" and e-link line. -->
+  </section>
+
+  <!-- ================= In progress ================= -->
+  <section>
+    <h2><span class="num">03</span>In progress <span class="count">0</span></h2>
+
+    <div class="entry">
+      <div class="e-head">
+        <span class="e-title"><span class="e-icon">🚧</span>Project name (placeholder)</span>
+        <span class="badge wip">In progress</span>
+        <span class="e-year">2026</span>
+      </div>
+      <p class="e-desc">One sentence: what it is, who it's for, what stage it's at. Replace this placeholder when your next project starts.</p>
+    </div>
+  </section>
+
+  <!-- ================= Ideas / planned ================= -->
+  <section>
+    <h2><span class="num">04</span>Ideas <span class="count">2</span></h2>
+
+    <div class="entry">
+      <div class="e-head">
+        <span class="e-title"><span class="e-icon">💡</span>Idea one (placeholder)</span>
+        <span class="badge planned">Planned</span>
+      </div>
+      <p class="e-desc">A rough idea worth pursuing someday. Writing it down is step one.</p>
+    </div>
+
+    <div class="entry">
+      <div class="e-head">
+        <span class="e-title"><span class="e-icon">💡</span>Idea two (placeholder)</span>
+        <span class="badge planned">Planned</span>
+      </div>
+      <p class="e-desc">Another one. Ideas are cheap; this list keeps them honest.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Xiaofei · Sight-link.eco</span>
+    <a href="index.html">← Back home</a>
+    <a href="stats.html">Stats →</a>
+  </footer>
+
+</div>
+</body>
+</html>
