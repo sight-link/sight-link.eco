@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0042)file:///C:/Users/huawei/Desktop/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sight-link.eco — Xiaofei</title>
 <meta name="description" content="Xiaofei's personal site: recording growth and projects.">
@@ -13,6 +13,7 @@
     --accent: #f97316;
     --border: #e5e5e3;
     --card: #ffffff;
+    --post-link: #0b83ee;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -48,60 +49,32 @@
   }
   h2 .num { color: var(--accent); margin-right: 8px; }
 
-  /* ---------- Projects ---------- */
-  .project { display: block; padding: 18px 0; border-bottom: 1px solid var(--border); text-decoration: none; }
-  .project:last-child { border-bottom: none; }
-  .project:hover .p-name { color: var(--accent); }
-  .p-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
-  .p-name { font-size: 17px; font-weight: 600; color: var(--text); transition: color .15s; }
-  .p-year { font-size: 13px; color: var(--muted); white-space: nowrap; }
-  .p-desc { font-size: 15px; color: var(--muted); margin-top: 4px; }
-
-  /* ---------- Growth log ---------- */
-  .log { list-style: none; }
-  .log li { position: relative; padding: 0 0 28px 28px; }
-  .log li::before {
-    content: ""; position: absolute; left: 0; top: 7px;
-    width: 9px; height: 9px; border-radius: 50%;
-    background: var(--accent);
+  /* ---------- Posts (levels.io style: date | thumbnail | title) ---------- */
+  .posts { max-width: 620px; }
+  .post {
+    display: grid;
+    grid-template-columns: 92px 116px minmax(0, 1fr);
+    align-items: center;
+    gap: 22px;
+    padding: 11px 0;
   }
-  .log li::after {
-    content: ""; position: absolute; left: 4px; top: 20px; bottom: 0;
-    width: 1px; background: var(--border);
+  .post-date { font-size: 16px; color: var(--muted); white-space: nowrap; }
+  .post-thumb {
+    display: block; width: 116px; height: 80px;
+    border-radius: 6px; object-fit: cover;
+    background: #edf0f2; border: 1px solid var(--border);
   }
-  .log li:last-child::after { display: none; }
-  .log time { font-size: 13px; color: var(--muted); font-weight: 600; display: block; margin-bottom: 2px; }
-  .log .log-title { font-size: 16px; font-weight: 600; }
-  .log .log-desc { font-size: 15px; color: var(--muted); }
-
-  /* ---------- Updates timeline (levels.io style, grouped by year) ---------- */
-  .updates { max-width: 620px; }
-  .u-year {
-    font-size: 26px; font-weight: 800; letter-spacing: -0.5px;
-    margin: 36px 0 16px; color: var(--text);
+  .post-thumb.placeholder { border-color: transparent; }
+  .post-title {
+    display: block; font-size: 21px; font-weight: 700; line-height: 1.35;
+    letter-spacing: -0.2px; color: var(--post-link);
+    text-decoration: none; overflow-wrap: anywhere;
   }
-  .u-year:first-child { margin-top: 0; }
-  .u-item { position: relative; padding: 0 0 26px 26px; }
-  .u-item::before {
-    content: ""; position: absolute; left: 0; top: 7px;
-    width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
-  }
-  .u-item::after {
-    content: ""; position: absolute; left: 4px; top: 20px; bottom: 0;
-    width: 1px; background: var(--border);
-  }
-  .u-item:last-child::after { display: none; }
-  .u-date { font-size: 13px; color: var(--muted); font-weight: 600; display: block; margin-bottom: 2px; }
-  .u-text { font-size: 15px; color: var(--text); }
-  .u-text a { color: var(--accent); }
-  .u-img {
-    display: block; max-width: 360px; width: 100%; border-radius: 10px;
-    margin-top: 10px; border: 1px solid var(--border);
-  }
-  .u-tag {
-    display: inline-block; margin-left: 8px; padding: 1px 8px;
+  a.post-title:hover { text-decoration: underline; }
+  .post-tag {
+    display: inline-block; margin-top: 6px; padding: 1px 8px;
     font-size: 11px; font-weight: 700; border-radius: 999px;
-    background: #fff7ed; color: var(--accent); vertical-align: 2px;
+    background: #fff7ed; color: var(--accent);
   }
 
   /* ---------- Contact ---------- */
@@ -127,7 +100,10 @@
   @media (max-width: 600px) {
     header { padding: 64px 0 48px; }
     header h1 { font-size: 28px; }
-    .p-row { flex-direction: column; gap: 2px; }
+    .post { grid-template-columns: 68px 76px minmax(0, 1fr); gap: 12px; }
+    .post-date { font-size: 13px; }
+    .post-thumb { width: 76px; height: 58px; }
+    .post-title { font-size: 17px; }
   }
 </style>
 </head>
@@ -135,9 +111,9 @@
 <div class="wrap">
 
   <header id="top">
-    <a class="logo" href="#top"><span class="dot"></span>SIGHT-LINK.ECO</a>
+    <a class="logo" href="file:///C:/Users/huawei/Desktop/index.html#top"><span class="dot"></span>SIGHT-LINK.ECO</a>
     <h1>Hi, I'm Xiaofei<span class="accent">.</span></h1>
-    <p style="margin-bottom: 24px;"><a href="projects.html" style="color: var(--accent); font-weight: 600; text-decoration: none;">→ All projects</a> · <a href="stats.html" style="color: var(--accent); font-weight: 600; text-decoration: none;">Stats &amp; portfolio</a></p>
+    <p style="margin-bottom: 24px;"><a href="file:///C:/Users/huawei/Desktop/projects.html" style="color: var(--accent); font-weight: 600; text-decoration: none;">→ All projects</a> · <a href="file:///C:/Users/huawei/Desktop/stats.html" style="color: var(--accent); font-weight: 600; text-decoration: none;">Stats &amp; portfolio</a></p>
     <p class="tagline">
       Recording growth, shipping consistently. This is my log of projects
       and everything I learn along the way — from brain MRI denoising
@@ -145,44 +121,35 @@
     </p>
   </header>
 
-  <!-- ================= Projects ================= -->
-  <section id="projects">
-    <h2><span class="num">01</span>Projects</h2>
-
-    <a class="project" href="#" target="_blank" rel="noopener">
-      <div class="p-row">
-        <span class="p-name">PP-CDiff — Pathology-Preserving Conditional Diffusion</span>
-        <span class="p-year">2026</span>
-      </div>
-      <p class="p-desc">Brain MRI denoising that preserves tumor-discriminative information. Noise-aware conditional diffusion with CBAM-style attention.</p>
-    </a>
-
-    <a class="project" href="#" target="_blank" rel="noopener">
-      <div class="p-row">
-        <span class="p-name">Sight-link.eco — This Site</span>
-        <span class="p-year">2026</span>
-      </div>
-      <p class="p-desc">A minimal one-page personal homepage for recording growth and projects. As simple and direct as levels.io.</p>
-    </a>
-
-    <a class="project" href="#" target="_blank" rel="noopener">
-      <div class="p-row">
-        <span class="p-name">Project Three (placeholder)</span>
-        <span class="p-year">2025</span>
-      </div>
-      <p class="p-desc">One sentence on what this project does and what problem it solves. Replace with your real project.</p>
-    </a>
-  </section>
-
-  <!-- ================= Updates timeline (auto-rendered from updates.json) ================= -->
-  <section id="updates">
-    <h2><span class="num">02</span>Updates</h2>
-    <div class="updates" id="updates-list"><div style="color: var(--muted); font-size: 14px;">Loading updates…</div></div>
+  <!-- ================= Posts (blog list) ================= -->
+  <section id="posts">
+    <h2><span class="num">UPDATES</span></h2>
+    <div class="posts" id="posts-list">
+        <div class="post">
+          <span class="post-date">17 Aug</span>
+          <span class="post-thumb placeholder" aria-hidden="true"></span>
+          <div><span class="post-title">Sight-link.eco 上线了:个人主页 + 项目货架 + GitHub 数据面板,全部手写,零框架。</span><div><span class="post-tag">milestone</span></div></div>
+        </div>
+        <div class="post">
+          <span class="post-date">15 Aug</span>
+          <span class="post-thumb placeholder" aria-hidden="true"></span>
+          <div><span class="post-title">PP-CDiff 消融实验设计定稿:7 个扩散变体、3 个种子、2 种噪声、3 档 DDIM 步数。准备迁移到云 GPU 跑完整实验。</span><div><span class="post-tag">research</span></div></div>
+        </div>
+        <div class="post">
+          <span class="post-date">10 Aug</span>
+          <span class="post-thumb placeholder" aria-hidden="true"></span>
+          <div><span class="post-title">把 Colab 实验迁到 Kaggle,免费 30 小时 GPU/周,够跑主实验了。(这条是示例,替换成你的真实动态)</span><div><span class="post-tag">note</span></div></div>
+        </div>
+        <div class="post">
+          <span class="post-date">23 Feb</span>
+          <span class="post-thumb placeholder" aria-hidden="true"></span>
+          <div><span class="post-title">The festival romance in the trillion-yuan district...</span><div><span class="post-tag">life</span></div></div>
+        </div></div>
   </section>
 
   <!-- ================= Contact ================= -->
   <section id="contact">
-    <h2><span class="num">03</span>Contact</h2>
+    <h2><span class="num">CONTACT</span></h2>
     <div class="contact-links">
       <a href="mailto:you@example.com">✉ Email</a>
       <a href="https://github.com/sight-link" target="_blank" rel="noopener">GitHub</a>
@@ -192,54 +159,108 @@
 
   <footer>
     <span>© 2026 Xiaofei · Sight-link.eco</span>
-    <a href="#top">Back to top ↑</a>
+    <a href="file:///C:/Users/huawei/Desktop/index.html#top">Back to top ↑</a>
   </footer>
 
 </div>
 
 <script>
-  // Updates timeline: rendered from updates.json, grouped by year (levels.io style).
-  // To post a new update, add one entry to updates.json — nothing else to touch.
-  async function loadUpdates() {
-    const el = document.getElementById("updates-list");
+  // Blog posts. Preferred source: updates.json (edit that file to add a post).
+  // When the page is opened directly from disk (file://), fetch is blocked by the
+  // browser, so we fall back to this inline copy — the list and images still show.
+  const FALLBACK_POSTS = [
+    {
+      "date": "2026-08-17",
+      "text": "Sight-link.eco 上线了:个人主页 + 项目货架 + GitHub 数据面板,全部手写,零框架。",
+      "image": "",
+      "link": "",
+      "tag": "milestone"
+    },
+    {
+      "date": "2026-08-15",
+      "text": "PP-CDiff 消融实验设计定稿:7 个扩散变体、3 个种子、2 种噪声、3 档 DDIM 步数。准备迁移到云 GPU 跑完整实验。",
+      "image": "",
+      "link": "",
+      "tag": "research"
+    },
+    {
+      "date": "2026-08-10",
+      "text": "把 Colab 实验迁到 Kaggle,免费 30 小时 GPU/周,够跑主实验了。(这条是示例,替换成你的真实动态)",
+      "image": "",
+      "link": "",
+      "tag": "note"
+    },
+    {
+      "date": "2026-02-23",
+      "text": "The festival romance in the trillion-yuan district...",
+      "image": "images/moment-260223.jpg.jpg",
+      "link": "",
+      "tag": "life"
+    }
+  ];
+
+  const esc = s => String(s ?? "").replace(/[&<>"]/g,
+    c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+  function fmtDate(d) {
+    const [y, m, day] = String(d).split("-");
+    const thisYear = String(new Date().getFullYear());
+    return `${+day} ${MONTHS[+m - 1]}${y === thisYear ? "" : " '" + y.slice(2)}`;
+  }
+
+  // Tolerate an old typo where the image path was used as a JSON key instead of "image".
+  function imageOf(it) {
+    if (it.image) return it.image;
+    const stray = Object.keys(it).find(k => /^images?\//i.test(k));
+    return stray || "";
+  }
+
+  function renderPosts(items) {
+    const el = document.getElementById("posts-list");
+    const list = items.slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
+
+    el.innerHTML = list.map(it => {
+      const image = imageOf(it);
+      const thumb = image
+        ? `<img class="post-thumb" src="${esc(image)}" alt="${esc(it.text)}" loading="lazy">`
+        : `<span class="post-thumb placeholder" aria-hidden="true"></span>`;
+      const title = it.link
+        ? `<a class="post-title" href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.text)}</a>`
+        : `<span class="post-title">${esc(it.text)}</span>`;
+      const tag = it.tag ? `<span class="post-tag">${esc(it.tag)}</span>` : "";
+      return `
+        <div class="post">
+          <span class="post-date">${fmtDate(it.date)}</span>
+          ${thumb}
+          <div>${title}${tag ? `<div>${tag}</div>` : ""}</div>
+        </div>`;
+    }).join("");
+
+    // A missing/broken image file should degrade to the same grey placeholder.
+    el.querySelectorAll("img.post-thumb").forEach(img => {
+      img.addEventListener("error", () => {
+        const span = document.createElement("span");
+        span.className = "post-thumb placeholder";
+        span.setAttribute("aria-hidden", "true");
+        img.replaceWith(span);
+      });
+    });
+  }
+
+  async function loadPosts() {
     try {
       const res = await fetch("updates.json");
       if (!res.ok) throw new Error(res.status);
-      const items = await res.json();
-      if (!Array.isArray(items) || !items.length) {
-        el.textContent = "No updates yet.";
-        return;
-      }
-      items.sort((a, b) => b.date.localeCompare(a.date));
-
-      const esc = s => String(s).replace(/[&<>"]/g,
-        c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-      const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-      const fmtDate = d => {
-        const [y, m, day] = d.split("-");
-        return `${MONTHS[+m - 1]} ${+day}, ${y}`;
-      };
-
-      let html = "", year = "";
-      for (const it of items) {
-        const y = it.date.slice(0, 4);
-        if (y !== year) { year = y; html += `<div class="u-year">${y}</div>`; }
-        const text = it.link
-          ? esc(it.text).replace(/\[link\]/, `<a href="${esc(it.link)}" target="_blank" rel="noopener">link&nbsp;↗</a>`)
-          : esc(it.text);
-        html += `
-          <div class="u-item">
-            <span class="u-date">${fmtDate(it.date)}${it.tag ? `<span class="u-tag">${esc(it.tag)}</span>` : ""}</span>
-            <div class="u-text">${text}</div>
-            ${it.image ? `<img class="u-img" src="${esc(it.image)}" alt="update image" loading="lazy">` : ""}
-          </div>`;
-      }
-      el.innerHTML = html;
+      const data = await res.json();
+      if (!Array.isArray(data) || !data.length) throw new Error("empty");
+      renderPosts(data);
     } catch (e) {
-      el.innerHTML = '<div style="color: var(--muted); font-size: 14px;">Updates unavailable when opened directly from disk — deploy to GitHub Pages, or serve locally with <code>python -m http.server</code>.</div>';
+      renderPosts(FALLBACK_POSTS);
     }
   }
-  loadUpdates();
+  loadPosts();
 </script>
-</body>
-</html>
+
+
+</body></html>
