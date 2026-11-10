@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sight-link.eco — Xiaofei</title>
+<meta name="description" content="Xiaofei's personal site: recording growth and projects.">
+<style>
+  :root {
+    --bg: #fafaf9;
+    --text: #111111;
+    --muted: #6b6b6b;
+    --accent: #f97316;
+    --border: #e5e5e3;
+    --card: #ffffff;
+    --post-link: #0b83ee;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Hero ---------- */
+  header { padding: 96px 0 64px; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 700; font-size: 15px; letter-spacing: 0.5px;
+    color: var(--text); text-decoration: none; margin-bottom: 40px;
+  }
+  .logo .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); display: inline-block;
+  }
+  header h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 16px; }
+  header h1 .accent { color: var(--accent); }
+  header p.tagline { font-size: 18px; color: var(--muted); max-width: 520px; }
+
+  /* ---------- Sections ---------- */
+  section { padding: 40px 0; border-top: 1px solid var(--border); }
+  h2 {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--muted); margin-bottom: 28px;
+  }
+  h2 .num { color: var(--accent); margin-right: 8px; }
+
+  /* ---------- Posts (levels.io style: date | thumbnail | title) ---------- */
+  .posts { max-width: 620px; }
+  .post {
+    display: grid;
+    grid-template-columns: 92px 116px minmax(0, 1fr);
+    align-items: center;
+    gap: 22px;
+    padding: 11px 0;
+  }
+  .post-date { font-size: 13.6px; color: var(--muted); white-space: nowrap; }
+  .post-thumb {
+    display: block; width: 116px; height: 80px;
+    border-radius: 6px; object-fit: cover;
+    background: #edf0f2; border: 1px solid var(--border);
+  }
+  .post-thumb.placeholder { border-color: transparent; }
+  .post-title {
+    display: block; font-size: 16px; font-weight: 700; line-height: 1.35;
+    letter-spacing: -0.2px; color: var(--post-link);
+    text-decoration: none; overflow-wrap: anywhere;
+  }
+  a.post-title:hover { text-decoration: underline; }
+  .post-tag {
+    display: inline-block; margin-top: 6px; padding: 1px 8px;
+    font-size: 11px; font-weight: 700; border-radius: 999px;
+    background: #fff7ed; color: var(--accent);
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .contact-links a {
+    display: inline-block; padding: 9px 20px;
+    border: 1px solid var(--border); border-radius: 999px;
+    background: var(--card); color: var(--text);
+    font-size: 14px; font-weight: 500; text-decoration: none;
+    transition: all .15s;
+  }
+  .contact-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 48px 0 64px; border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--muted);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    header { padding: 64px 0 48px; }
+    header h1 { font-size: 28px; }
+    .post { grid-template-columns: 68px 76px minmax(0, 1fr); gap: 12px; }
+    .post-date { font-size: 13.6px; }
+    .post-thumb { width: 76px; height: 58px; }
+    .post-title { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header id="top">
+    <a class="logo" href="#top"><span class="dot"></span>SIGHT-LINK.ECO</a>
+    <h1>Hi, I'm Xiaofei<span class="accent">.</span></h1>
+    <p style="margin-bottom: 24px;"><a href="projects.html" style="color: var(--accent); font-weight: 600; text-decoration: none;">→ All projects</a> · <a href="stats.html" style="color: var(--accent); font-weight: 600; text-decoration: none;">Stats &amp; portfolio</a></p>
+    <p class="tagline">
+      Recording growth, shipping consistently. This is my log of projects
+      and everything I learn along the way — from brain MRI denoising
+      research to every small iteration.
+    </p>
+  </header>
+
+  <!-- ================= Posts (blog list) ================= -->
+  <section id="posts">
+    <h2><span class="num">01</span>Updates</h2>
+    <div class="posts" id="posts-list"><div style="color: var(--muted); font-size: 14px;">Loading posts…</div></div>
+  </section>
+
+  <!-- ================= Contact ================= -->
+  <section id="contact">
+    <h2><span class="num">02</span>Contact</h2>
+    <div class="contact-links">
+      <a href="mailto:you@example.com">✉ Email</a>
+      <a href="https://github.com/sight-link" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://x.com/yourname" target="_blank" rel="noopener">X / Twitter</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Xiaofei · Sight-link.eco</span>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+</div>
+
+<script>
+  // 博客数据唯一来源：updates.json。
+  // 新增博客只需编辑 updates.json 并提交，页面会自动更新，无需改动本文件。
+
+  const esc = s => String(s ?? "").replace(/[&<>"]/g,
+    c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+  function fmtDate(d) {
+    const [y, m, day] = String(d).split("-");
+    const thisYear = String(new Date().getFullYear());
+    return `${+day} ${MONTHS[+m - 1]}${y === thisYear ? "" : " '" + y.slice(2)}`;
+  }
+
+  // Tolerate an old typo where the image path was used as a JSON key instead of "image".
+  function imageOf(it) {
+    if (it.image) return it.image;
+    const stray = Object.keys(it).find(k => /^images?\//i.test(k));
+    return stray || "";
+  }
+
+  function renderPosts(items) {
+    const el = document.getElementById("posts-list");
+    const list = items.slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
+
+    el.innerHTML = list.map(it => {
+      const image = imageOf(it);
+      const thumb = image
+        ? `<img class="post-thumb" src="${esc(image)}" alt="${esc(it.text)}" loading="lazy">`
+        : `<span class="post-thumb placeholder" aria-hidden="true"></span>`;
+      const title = it.link
+        ? `<a class="post-title" href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.text)}</a>`
+        : `<span class="post-title">${esc(it.text)}</span>`;
+      const tag = it.tag ? `<span class="post-tag">${esc(it.tag)}</span>` : "";
+      return `
+        <div class="post">
+          <span class="post-date">${fmtDate(it.date)}</span>
+          ${thumb}
+          <div>${title}${tag ? `<div>${tag}</div>` : ""}</div>
+        </div>`;
+    }).join("");
+
+    // A missing/broken image file should degrade to the same grey placeholder.
+    el.querySelectorAll("img.post-thumb").forEach(img => {
+      img.addEventListener("error", () => {
+        const span = document.createElement("span");
+        span.className = "post-thumb placeholder";
+        span.setAttribute("aria-hidden", "true");
+        img.replaceWith(span);
+      });
+    });
+  }
+
+  async function loadPosts() {
+    try {
+      const res = await fetch("updates.json");
+      if (!res.ok) throw new Error(res.status);
+      const data = await res.json();
+      if (!Array.isArray(data) || !data.length) throw new Error("empty");
+      renderPosts(data);
+    } catch (e) {
+      document.getElementById("posts-list").innerHTML =
+        '<div style="color: var(--muted); font-size: 14px; line-height: 1.8;">' +
+        '博客数据来自 <code>updates.json</code>。本地双击打开时浏览器会拦截数据请求，' +
+        '请访问线上网址，或在本目录运行 <code>python -m http.server</code> 后打开 ' +
+        '<code>http://localhost:8000</code>。</div>';
+    }
+  }
+  loadPosts();
+</script>
+</body>
+</html>
