@@ -1,6 +1,14 @@
 [
   {
     "date": "2026-11-11",
+    "text": "Some will grow old, some need to be kept.",
+    "image": "images/2026-11-11-4.jpg",
+    "link": "",
+    "tag": "",
+    "source_issue": 4
+  },
+  {
+    "date": "2026-11-11",
     "text": "Some things will grow old, and some things will stay.",
     "image": "images/2026-11-11-3.jpg",
     "link": "",
