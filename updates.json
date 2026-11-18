@@ -1,27 +1,18 @@
 [
   {
+    "date": "2026-11-13",
+    "text": "Benefits of being a PolyU alum: from studios to companies, providing incubation support for entrepreneurs in Shenzhen and Hong Kong, I won't be held back by all kinds of confusion no matter where I am.",
+    "image": "images/2026-11-13.jpg",
+    "link": "",
+    "tag": "note",
+  },
+  {
     "date": "2026-11-11",
     "text": "Some will grow old, some need to be kept.",
     "image": "images/2026-11-11-4.jpg",
     "link": "",
-    "tag": "",
+    "tag": "note",
     "source_issue": 4
-  },
-  {
-    "date": "2026-11-11",
-    "text": "Some things will grow old, and some things will stay.",
-    "image": "images/2026-11-11-3.jpg",
-    "link": "",
-    "tag": "",
-    "source_issue": 3
-  },
-  {
-    "date": "2026-11-11",
-    "text": "Some things will grow old, and some things will stay.",
-    "image": "",
-    "link": "",
-    "tag": "",
-    "source_issue": 2
   },
   {
     "date": "2026-10-30",
@@ -30,6 +21,93 @@
     "link": "",
     "tag": "life",
     "source_issue": 1
+  },
+  {
+    "date": "2026-10-27",
+    "text": "APEC is coming, let’s gather in Shenzhen.",
+    "image": "images/2026-10-27.jpg",
+    "link": "",
+    "tag": "life"
+  },
+  {
+    "date": "2026-10-24",
+    "text": "Designers from multiple countries shared the stage, talking about people, nature, and light... AI has made the creative process much simpler, but good work still really depends on ideas and aesthetics. No matter how closely you look, it's flawless.",
+    "image": "images/2026-10-24.jpg",
+    "link": "",
+    "tag": "art"
+  },
+  {
+    "date": "2026-10-15",
+    "text": "Today I witnessed the booming vitality of the overseas short drama market—thousands of seats were fully packed, and even teams that aren't very big can generate business on a billion-level scale. I can't help but marvel at how AI has created so many entirely new opportunities...",
+    "image": "images/2026-10-15.jpg",
+    "link": "",
+    "tag": "tech"
+  },
+  {
+    "date": "2026-10-01",
+    "text": "Today I happened to pass by the Huawei Mate 90 launch event, and I just went along as a quiet audience member. Many fans arrived early, quietly anticipating, clapping, interacting... It turns out Huawei is more than just a familiar name. Being there in person, you can feel that warm distance between it and people. The charm of a national brand probably never comes from noise, but from the long-term trust of its users.",
+    "image": "images/moment-260223.jpg",
+    "link": "",
+    "tag": "life"
+  },
+  {
+    "date": "2026-09-26",
+    "text": "Each of these drones is an independent intelligent terminal. To get them to move precisely in three-dimensional space, the margin for error is very strict. From early-stage modeling and flight path planning to on-site control of hundreds of drones and anti-interference coordination, every step tests the team's limits. 
+The glory of technology adds to a prosperous era. I hope this swarm of drones can carry the heartfelt anticipation of those longing to return home.",
+    "image": "images/2026-09-26.jpg",
+    "link": "",
+    "tag": "tech"
+  },
+  {
+    "date": "2026-09-04",
+    "text": "Be the girl who embraces AI, and set sail with the creators.",
+    "image": "images/2026-09-04.jpg",
+    "link": "",
+    "tag": "life"
+  },
+  {
+    "date": "2026-09-04",
+    "text": "From finance to compliance, inclusive services are a demand many small and medium-sized enterprises face nowadays, and policy support for compliance is also becoming essential across industries.",
+    "image": "images/2026-09-04a.jpg",
+    "link": "",
+    "tag": "note"
+  },
+  {
+    "date": "2026-09-01",
+    "text": "One river, two cities, one park, two areas; the tech and innovation development in Shenzhen and Hong Kong will keep getting more and more prosperous.",
+    "image": "images/2026-09-01.jpg",
+    "link": "",
+    "tag": "life"
+  },
+  {
+    "date": "2026-08-24",
+    "text": "Kuding Buckwheat Tea. It starts sweet, then turns bitter, and then sweet again, just like life.",
+    "image": "images/2026-08-24.jpg",
+    "link": "",
+    "tag": "life"
+  },
+  {
+    "date": "2026-08-21",
+    "text": "The owner comes here to walk the dog every day and has become a regular around here. ",
+    "image": "images/2026-08-21.jpg",
+    "link": "",
+    "tag": "life"
+  },
+  {
+    "date": "2026-08-19",
+    "text": "Stick with a great company and you’ll be rewarded [Yay].  
+Eli Lilly took just 2 years to shake up the global pharmaceutical rankings, jumping over the top ten companies straight to #1.  
+In 2025, prescription drug sales reached $60.777 billion, and the revenue from just two products—diabetes and weight loss—accounts for about 60% of Lilly’s prescription sales. On the flip side of this huge success is the massive treatment market fueled by modern people’s subhealth issues~",
+    "image": "images/2026-08-19.jpg",
+    "link": "",
+    "tag": "life"
+  },
+  {
+    "date": "2026-08-17",
+    "text": "Recently, I compressed a month's worth of thesis work into a week, thanks to AI—otherwise, I couldn't have finished it. Training the model already made my CPU smoke, and using Colab is nerve-wracking. Alibaba Cloud's service is still the easiest to use.",
+    "image": "images/2026-08-17.jpg",
+    "link": "",
+    "tag": "tech"
   },
   {
     "date": "2026-02-23",
