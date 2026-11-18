@@ -65,12 +65,30 @@
     background: #edf0f2; border: 1px solid var(--border);
   }
   .post-thumb.placeholder { border-color: transparent; }
+  .post-title-wrap { position: relative; }
   .post-title {
-    display: block; font-size: 16px; font-weight: 700; line-height: 1.35;
-    letter-spacing: -0.2px; color: var(--post-link);
-    text-decoration: none; overflow-wrap: anywhere;
+    display: block; font-size: 16px; font-weight: 400; line-height: 1.5;
+    letter-spacing: -0.2px; color: var(--post-link); overflow-wrap: anywhere;
   }
-  a.post-title:hover { text-decoration: underline; }
+  .post-title-text {
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+    line-clamp: 2; overflow: hidden; text-decoration: none; color: inherit;
+  }
+  .post-title-text.clamped { padding-right: 96px; }
+  .post-title-text.expanded { -webkit-line-clamp: unset; line-clamp: unset; overflow: visible; padding-right: 0; }
+  .post-toggle {
+    position: absolute; right: 0; bottom: 0;
+    display: none; align-items: center; gap: 3px;
+    border: 0; padding: 0 0 0 20px; margin: 0;
+    background: linear-gradient(90deg, rgba(250,250,249,0), var(--bg) 16px);
+    font-size: 13px; font-weight: 400; line-height: 1.5; color: var(--post-link);
+    cursor: pointer; white-space: nowrap;
+  }
+  .post-toggle.show { display: inline-flex; }
+  .post-toggle .chev { transition: transform .15s ease; }
+  .post-toggle.expanded .chev { transform: rotate(180deg); }
+  .post-toggle:hover .lbl { text-decoration: underline; }
+  a.post-title-text:hover { text-decoration: underline; }
   .post-tag {
     display: inline-block; margin-top: 6px; padding: 1px 8px;
     font-size: 11px; font-weight: 700; border-radius: 999px;
@@ -174,15 +192,18 @@
       const thumb = image
         ? `<img class="post-thumb" src="${esc(image)}" alt="${esc(it.text)}" loading="lazy">`
         : `<span class="post-thumb placeholder" aria-hidden="true"></span>`;
+      const text = `<span class="post-title-text">${esc(it.text)}</span>`;
       const title = it.link
-        ? `<a class="post-title" href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.text)}</a>`
-        : `<span class="post-title">${esc(it.text)}</span>`;
+        ? `<a class="post-title" href="${esc(it.link)}" target="_blank" rel="noopener">${text}</a>`
+        : `<div class="post-title">${text}</div>`;
+      const chevron = `<svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      const toggle = `<button class="post-toggle" type="button" aria-expanded="false">${chevron}<span class="lbl">Show more</span></button>`;
       const tag = it.tag ? `<span class="post-tag">${esc(it.tag)}</span>` : "";
       return `
         <div class="post">
           <span class="post-date">${fmtDate(it.date)}</span>
           ${thumb}
-          <div>${title}${tag ? `<div>${tag}</div>` : ""}</div>
+          <div class="post-body"><div class="post-title-wrap">${title}${toggle}</div>${tag ? `<div>${tag}</div>` : ""}</div>
         </div>`;
     }).join("");
 
@@ -195,7 +216,34 @@
         img.replaceWith(span);
       });
     });
+
+    // Only show the expand/collapse control when the text actually exceeds two lines.
+    el.querySelectorAll(".post-body").forEach(body => {
+      const textEl = body.querySelector(".post-title-text");
+      const btn = body.querySelector(".post-toggle");
+      // Measure in the collapsed state (the default), so decide before any click.
+      const clamped = textEl.scrollHeight > textEl.clientHeight + 1;
+      btn.classList.toggle("show", clamped);
+      textEl.classList.toggle("clamped", clamped);
+      btn.addEventListener("click", () => {
+        const expanded = textEl.classList.toggle("expanded");
+        btn.classList.toggle("expanded", expanded);
+        btn.querySelector(".lbl").textContent = expanded ? "Show less" : "Show more";
+        btn.setAttribute("aria-expanded", expanded ? "true" : "false");
+        btn.classList.add("show");
+      });
+    });
   }
+
+  function refreshClamps() {
+    document.querySelectorAll(".post-body").forEach(body => {
+      const textEl = body.querySelector(".post-title-text");
+      const btn = body.querySelector(".post-toggle");
+      if (textEl.classList.contains("expanded")) { btn.classList.add("show"); return; }
+      btn.classList.toggle("show", textEl.scrollHeight > textEl.clientHeight + 1);
+    });
+  }
+  window.addEventListener("resize", refreshClamps);
 
   async function loadPosts() {
     try {
