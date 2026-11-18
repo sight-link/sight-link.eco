@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Projects — Sight-link.eco</title>
-<meta name="description" content="Everything I've built and plan to build.">
+<meta name="description" content="Public activity — data analysis, model development, milestones and business cases.">
 <style>
   :root {
     --bg: #fafaf9;
@@ -13,6 +13,7 @@
     --accent: #f97316;
     --border: #e5e5e3;
     --card: #ffffff;
+    --empty: #e8e8e6;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -22,62 +23,70 @@
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
 
   /* ---------- Header ---------- */
-  header { padding: 72px 0 48px; }
+  header { padding: 72px 0 40px; }
   .logo {
     display: inline-flex; align-items: center; gap: 8px;
     font-weight: 700; font-size: 15px; letter-spacing: 0.5px;
     color: var(--text); text-decoration: none; margin-bottom: 36px;
   }
-  .logo .dot {
-    width: 10px; height: 10px; border-radius: 50%;
-    background: var(--accent); display: inline-block;
-  }
+  .logo .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); display: inline-block; }
   header h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
   header h1 .accent { color: var(--accent); }
-  header p { font-size: 17px; color: var(--muted); max-width: 540px; }
+  header p { font-size: 17px; color: var(--muted); max-width: 620px; }
 
-  /* ---------- Sections ---------- */
-  section { padding: 40px 0; border-top: 1px solid var(--border); }
+  /* ---------- Section ---------- */
+  section { padding: 36px 0; border-top: 1px solid var(--border); }
   h2 {
     font-size: 13px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 2px; color: var(--muted); margin-bottom: 24px;
+    letter-spacing: 2px; color: var(--muted); margin-bottom: 6px;
+    display: flex; align-items: center; gap: 9px;
   }
-  h2 .num { color: var(--accent); margin-right: 8px; }
-  h2 .count { float: right; color: var(--border); font-size: 15px; letter-spacing: 0; }
+  h2 .num { color: var(--accent); }
+  .swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  h2 .count { margin-left: auto; color: var(--muted); font-size: 12px; letter-spacing: 0; font-weight: 600; }
+  .section-note { font-size: 13px; color: var(--muted); margin: 0 0 18px; }
 
-  /* ---------- Project entries (levels.io style list) ---------- */
-  .entry {
-    display: block; padding: 20px 0;
-    border-bottom: 1px solid var(--border);
-    text-decoration: none;
+  /* ---------- Calendar ---------- */
+  .months {
+    display: grid; grid-template-columns: 14px repeat(53, 1fr);
+    font-size: 11px; color: var(--muted); margin-bottom: 4px;
   }
-  .entry:last-child { border-bottom: none; }
-  .entry:hover .e-title { color: var(--accent); }
-  .e-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-  .e-title { font-size: 19px; font-weight: 700; color: var(--text); transition: color .15s; }
-  .e-year { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
-  .e-desc { font-size: 15px; color: var(--muted); margin-top: 4px; max-width: 560px; }
-  .e-link { font-size: 13px; color: var(--accent); font-weight: 600; margin-top: 8px; display: inline-block; }
-
-  /* status badges */
-  .badge {
-    display: inline-block; padding: 1px 10px; border-radius: 999px;
-    font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
-    vertical-align: 2px;
+  .months span { text-align: left; white-space: nowrap; }
+  .calendar {
+    display: grid; grid-template-columns: 14px repeat(53, 1fr);
+    grid-auto-rows: 12px; gap: 3px 2px; align-items: center;
   }
-  .badge.live    { background: #ecfdf5; color: #059669; }
-  .badge.wip     { background: #fff7ed; color: #f97316; }
-  .badge.planned { background: #f3f4f6; color: #6b7280; }
+  .dow { font-size: 10px; color: var(--muted); line-height: 12px; }
+  .cell { width: 10px; height: 10px; border-radius: 50%; background: var(--empty); justify-self: center; }
+  .cell.future { background: transparent; }
+  .cell.has { cursor: pointer; transition: transform .12s, box-shadow .12s; }
+  .cell.has:hover { transform: scale(1.35); box-shadow: 0 0 0 2px var(--text); }
 
-  /* emoji icon variant for bigger showcase items */
-  .showcase .entry { padding: 24px 0; }
-  .showcase .e-title { font-size: 22px; }
-  .e-icon { margin-right: 10px; }
+  /* ---------- Detail ---------- */
+  .detail {
+    display: flex; gap: 16px; min-height: 92px; margin-top: 18px; padding: 14px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  }
+  .detail .thumb {
+    width: 116px; height: 76px; flex: none; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    background: #f6f6f4;
+  }
+  .detail .body { flex: 1; min-width: 0; }
+  .detail .d-title { font-size: 15px; font-weight: 700; line-height: 1.35; }
+  .detail .d-meta { font-size: 12px; color: var(--muted); margin: 2px 0 5px; }
+  .detail .d-desc { font-size: 13px; color: var(--muted); }
+  .detail .d-link { display: inline-block; margin-top: 6px; font-size: 13px; color: var(--accent); font-weight: 600; text-decoration: none; }
+  .detail .d-link:hover { text-decoration: underline; }
+  .detail .placeholder { align-self: center; font-size: 13px; color: var(--muted); }
 
-  /* ---------- Footer ---------- */
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 8px 0 40px; font-size: 12px; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
   footer {
     padding: 40px 0 64px; border-top: 1px solid var(--border);
     font-size: 13px; color: var(--muted);
@@ -85,6 +94,13 @@
   }
   footer a { color: var(--muted); text-decoration: none; }
   footer a:hover { color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .calendar, .months { grid-template-columns: 12px repeat(53, 1fr); gap: 2px 1px; }
+    .cell { width: 7px; height: 7px; }
+    .detail { flex-direction: column; }
+    .detail .thumb { width: 100%; height: 64px; }
+  }
 </style>
 </head>
 <body>
@@ -93,77 +109,11 @@
   <header id="top">
     <a class="logo" href="index.html"><span class="dot"></span>SIGHT-LINK.ECO</a>
     <h1>Projects<span class="accent">.</span></h1>
-    <p>Everything I've built — shipped, in progress, or still an idea.
-       Some live on GitHub, some don't. All of them live here.</p>
+    <p>Public activity — one dot per working day, grouped by what it was. Hover a dot to preview, click to open it on its home platform.</p>
   </header>
 
-  <!-- ================= Flagship / big projects ================= -->
-  <section class="showcase">
-    <h2><span class="num">01</span>Flagship projects <span class="count">1</span></h2>
-
-    <a class="entry" href="#" target="_blank" rel="noopener">
-      <div class="e-head">
-        <span class="e-title"><span class="e-icon">🧠</span>PP-CDiff</span>
-        <span class="badge wip">In progress</span>
-        <span class="e-year">2026</span>
-      </div>
-      <p class="e-desc">Pathology-preserving conditional diffusion for brain MRI denoising. Research paper in progress — noise-aware diffusion that keeps tumor-discriminative information intact.</p>
-      <span class="e-link">→ Read the paper (coming)</span>
-    </a>
-  </section>
-
-  <!-- ================= Shipped ================= -->
-  <section>
-    <h2><span class="num">02</span>Shipped <span class="count">1</span></h2>
-
-    <a class="entry" href="#" target="_blank" rel="noopener">
-      <div class="e-head">
-        <span class="e-title"><span class="e-icon">🌐</span>Sight-link.eco</span>
-        <span class="badge live">Live</span>
-        <span class="e-year">2026</span>
-      </div>
-      <p class="e-desc">This site — homepage, live GitHub dashboard and project shelf. Hand-built, zero frameworks, loads instantly.</p>
-      <span class="e-link">→ Visit</span>
-    </a>
-
-    <!-- Add shipped projects by copying the block above.
-         For projects without a link yet, remove the href="#" and e-link line. -->
-  </section>
-
-  <!-- ================= In progress ================= -->
-  <section>
-    <h2><span class="num">03</span>In progress <span class="count">0</span></h2>
-
-    <div class="entry">
-      <div class="e-head">
-        <span class="e-title"><span class="e-icon">🚧</span>Project name (placeholder)</span>
-        <span class="badge wip">In progress</span>
-        <span class="e-year">2026</span>
-      </div>
-      <p class="e-desc">One sentence: what it is, who it's for, what stage it's at. Replace this placeholder when your next project starts.</p>
-    </div>
-  </section>
-
-  <!-- ================= Ideas / planned ================= -->
-  <section>
-    <h2><span class="num">04</span>Ideas <span class="count">2</span></h2>
-
-    <div class="entry">
-      <div class="e-head">
-        <span class="e-title"><span class="e-icon">💡</span>Idea one (placeholder)</span>
-        <span class="badge planned">Planned</span>
-      </div>
-      <p class="e-desc">A rough idea worth pursuing someday. Writing it down is step one.</p>
-    </div>
-
-    <div class="entry">
-      <div class="e-head">
-        <span class="e-title"><span class="e-icon">💡</span>Idea two (placeholder)</span>
-        <span class="badge planned">Planned</span>
-      </div>
-      <p class="e-desc">Another one. Ideas are cheap; this list keeps them honest.</p>
-    </div>
-  </section>
+  <div class="legend" id="legend"></div>
+  <main id="sections"></main>
 
   <footer>
     <span>© 2026 Xiaofei · Sight-link.eco</span>
@@ -172,5 +122,144 @@
   </footer>
 
 </div>
+
+<script>
+(function () {
+  var CATS = [
+    { id: "data",       label: "Data analysis",      color: "#378ADD", note: "Exploratory analysis, visualization and statistical studies." },
+    { id: "model",      label: "Model development",  color: "#7F77DD", note: "Machine learning and deep learning models, training and evaluation." },
+    { id: "milestone",  label: "Milestones",         color: "#EF9F27", note: "Launches, prototypes and things that marked a step forward." },
+    { id: "business",   label: "Business cases",     color: "#1D9E75", note: "Dashboards and projects built around a real-world use case." }
+  ];
+  var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  var DOW = ["S", "M", "T", "W", "T", "F", "S"];
+  var DAY = 86400000;
+  var COLS = 53;
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (m) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m];
+    });
+  }
+  function key(d) {
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  function thumbSvg(color, label) {
+    return '<svg width="76" height="44" viewBox="0 0 76 44" aria-hidden="true">' +
+      '<rect x="6" y="24" width="12" height="14" rx="2" fill="' + color + '" opacity="0.35"/>' +
+      '<rect x="24" y="14" width="12" height="24" rx="2" fill="' + color + '" opacity="0.55"/>' +
+      '<rect x="42" y="19" width="12" height="19" rx="2" fill="' + color + '" opacity="0.75"/>' +
+      '<rect x="60" y="7" width="12" height="31" rx="2" fill="' + color + '"/>' +
+      '</svg>';
+  }
+
+  function windowRange() {
+    var now = new Date();
+    var end = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var start = new Date(now.getFullYear(), now.getMonth() - 11, 1);
+    start.setDate(start.getDate() - start.getDay());
+    var weeks = Math.ceil((end - start) / DAY / 7) + 1;
+    return { start: start, end: end, weeks: Math.min(weeks, COLS) };
+  }
+  function monthLabels(range) {
+    var cells = new Array(range.weeks + 1).join("<span></span>").split("");
+    var html = "<span></span>";
+    var lastMonth = -1;
+    for (var w = 0; w < range.weeks; w++) {
+      var found = -1;
+      for (var d = 0; d < 7; d++) {
+        var day = new Date(range.start.getTime() + (w * 7 + d) * DAY);
+        if (day > range.end) break;
+        if (day.getDate() <= 7 && day.getDay() === 0) { found = day.getMonth(); break; }
+      }
+      if (found >= 0 && found !== lastMonth) { html += "<span>" + MONTHS[found] + "</span>"; lastMonth = found; }
+      else html += "<span></span>";
+    }
+    return html;
+  }
+  function calendarHtml(range, byDate, color) {
+    var html = "";
+    for (var r = 0; r < 7; r++) {
+      html += '<div class="dow">' + DOW[r] + "</div>";
+      for (var w = 0; w < range.weeks; w++) {
+        var day = new Date(range.start.getTime() + (w * 7 + r) * DAY);
+        var k = key(day);
+        if (day > range.end) { html += '<div class="cell future"></div>'; continue; }
+        var works = byDate[k];
+        if (works && works.length) {
+          html += '<div class="cell has" data-date="' + k + '" style="background:' + color +
+                  ';opacity:' + (0.55 + 0.45 / Math.min(works.length, 3)) + '" title="' + esc(works[0].title) + '"></div>';
+        } else {
+          html += '<div class="cell"></div>';
+        }
+      }
+    }
+    return html;
+  }
+
+  function build(cat, works, range) {
+    var byDate = {};
+    works.forEach(function (w) { (byDate[w.date] = byDate[w.date] || []).push(w); });
+    var section = document.createElement("section");
+    section.innerHTML =
+      '<h2><span class="num">' + String(CATS.indexOf(cat) + 1).padStart(2, "0") + '</span>' +
+      '<span class="swatch" style="background:' + cat.color + '"></span>' + esc(cat.label) +
+      '<span class="count">' + works.length + " works</span></h2>" +
+      '<p class="section-note">' + esc(cat.note) + "</p>" +
+      '<div class="months">' + monthLabels(range) + "</div>" +
+      '<div class="calendar">' + calendarHtml(range, byDate, cat.color) + "</div>" +
+      '<div class="detail" id="detail-' + cat.id + '"><span class="placeholder">Hover a colored dot to preview a work.</span></div>';
+    document.getElementById("sections").appendChild(section);
+
+    var detail = document.getElementById("detail-" + cat.id);
+    var cells = section.querySelectorAll(".cell.has");
+    for (var i = 0; i < cells.length; i++) {
+      (function (el) {
+        var d = el.getAttribute("data-date");
+        function show() {
+          var list = byDate[d];
+          var w = list[0];
+          var extra = list.length > 1
+            ? '<div class="d-meta">+' + (list.length - 1) + " more on this day</div>"
+            : "";
+          detail.innerHTML =
+            '<div class="thumb" style="background:' + cat.color + '18">' + thumbSvg(cat.color) + "</div>" +
+            '<div class="body"><div class="d-title">' + esc(w.title) + "</div>" +
+            '<div class="d-meta">' + esc(d) + " · " + esc(w.platform || "Web") + "</div>" +
+            '<div class="d-desc">' + esc(w.desc || "") + "</div>" + extra +
+            '<a class="d-link" href="' + esc(w.url) + '" target="_blank" rel="noopener">View details ↗</a></div>';
+        }
+        el.addEventListener("mouseenter", show);
+        el.addEventListener("click", function () {
+          show();
+          var list = byDate[d];
+          if (list[0].url) window.open(list[0].url, "_blank", "noopener");
+        });
+      })(cells[i]);
+    }
+  }
+
+  function load() {
+    var range = windowRange();
+    fetch("projects.json?v=" + Date.now(), { cache: "no-store" })
+      .then(function (res) { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); })
+      .then(function (items) {
+        document.getElementById("legend").innerHTML =
+          CATS.map(function (c) { return "<span><i style=\"background:" + c.color + "\"></i>" + esc(c.label) + "</span>"; }).join("");
+        CATS.forEach(function (cat) {
+          var works = items.filter(function (w) { return w.category === cat.id && w.date >= key(range.start) && w.date <= key(range.end); });
+          works.sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
+          build(cat, works, range);
+        });
+      })
+      .catch(function (e) {
+        document.getElementById("sections").innerHTML =
+          '<section><p class="section-note">Could not load projects.json (' + esc(e.message) +
+          '). Open this page through a local server, or view it online.</p></section>';
+      });
+  }
+  load();
+})();
+</script>
 </body>
 </html>
