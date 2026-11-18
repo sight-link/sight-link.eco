@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stats & Portfolio — Sight-link.eco</title>
-<meta name="description" content="Xiaofei's stats and portfolio dashboard.">
+<title>Stats — Sight-link.eco</title>
+<meta name="description" content="Every update on this site, visualised by month and topic.">
 <style>
   :root {
     --bg: #fafaf9;
@@ -24,121 +24,157 @@
   }
   .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
 
-  /* ---------- Header ---------- */
-  header { padding: 72px 0 48px; }
+  header { padding: 72px 0 36px; }
   .logo {
     display: inline-flex; align-items: center; gap: 8px;
     font-weight: 700; font-size: 15px; letter-spacing: 0.5px;
     color: var(--text); text-decoration: none; margin-bottom: 36px;
   }
-  .logo .dot {
-    width: 10px; height: 10px; border-radius: 50%;
-    background: var(--accent); display: inline-block;
-  }
+  .logo .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); display: inline-block; }
   header h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
   header h1 .accent { color: var(--accent); }
   header p { font-size: 17px; color: var(--muted); max-width: 560px; }
 
-  /* ---------- Section titles ---------- */
-  h2 {
-    font-size: 13px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 2px; color: var(--muted);
-    margin: 48px 0 20px; padding-top: 40px; border-top: 1px solid var(--border);
+  /* ---------- one-line summary ---------- */
+  .summary {
+    display: flex; flex-wrap: wrap; gap: 12px 36px;
+    padding: 18px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    font-size: 13px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
   }
-  h2 .num { color: var(--accent); margin-right: 8px; }
+  .summary b { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -0.5px; margin-right: 6px; vertical-align: -2px; font-variant-numeric: tabular-nums; }
 
-  /* ---------- Stats grid (levels.io/stats style) ---------- */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 16px;
+  /* ---------- tabs ---------- */
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 32px 0 16px; }
+  .tab {
+    font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+    padding: 7px 15px; border-radius: 999px;
+    border: 1px solid var(--border); background: transparent; color: var(--muted);
+    transition: border-color .15s, color .15s, background .15s;
   }
-  .stat {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 22px 20px 18px;
-  }
-  .stat .value {
-    font-size: 34px; font-weight: 800; letter-spacing: -1px;
-    font-variant-numeric: tabular-nums; line-height: 1.15;
-  }
-  .stat .value .unit { font-size: 16px; font-weight: 600; color: var(--muted); margin-left: 4px; }
-  .stat .label { font-size: 13px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 6px; }
-  .stat .trend { font-size: 13px; margin-top: 8px; color: var(--accent); font-weight: 600; }
-  .bar {
-    height: 6px; border-radius: 3px; background: var(--border);
-    margin-top: 12px; overflow: hidden;
-  }
-  .bar > span { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+  .tab:hover { border-color: var(--accent); color: var(--accent); }
+  .tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-  /* ---------- Portfolio grid ---------- */
-  .portfolio { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    text-decoration: none;
-    color: var(--text);
-    transition: border-color .15s, transform .15s;
-    display: flex; flex-direction: column;
+  /* ---------- chart panel ---------- */
+  .panel {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px;
   }
-  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .card .thumb {
-    aspect-ratio: 16 / 9;
-    background: linear-gradient(135deg, #fff7ed, #ffedd5);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 40px;
-  }
-  .card .body { padding: 16px 18px 18px; flex: 1; }
-  .card .c-title { font-size: 16px; font-weight: 700; }
-  .card .c-desc { font-size: 14px; color: var(--muted); margin-top: 4px; }
-  .card .c-meta {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-top: 14px; font-size: 12px; color: var(--muted); font-weight: 600;
-  }
-  .tag {
-    display: inline-block; padding: 2px 10px; border-radius: 999px;
-    background: #fff7ed; color: var(--accent); font-size: 12px; font-weight: 600;
-  }
+  .panel-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .panel-head .count { font-size: 14px; font-weight: 700; }
+  .prop { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); cursor: pointer; user-select: none; }
+  .prop input { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 18px 0 6px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); cursor: pointer; user-select: none; transition: opacity .15s; }
+  .legend span:hover { color: var(--text); }
+  .legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .legend span.dim { opacity: .3; }
+  .legend span.active { color: var(--text); font-weight: 700; }
+  .hint { font-size: 12px; color: var(--muted); opacity: .75; margin-top: 16px; }
 
-  /* ---------- Skills / stack meters ---------- */
+  /* archive wall */
+  .wall { display: flex; align-items: flex-end; gap: 26px; padding: 20px 6px 4px; overflow-x: auto; min-height: 250px; }
+  .wcol { flex: none; width: 52px; display: flex; flex-direction: column; align-items: center; }
+  .wcol-bars { width: 100%; display: flex; flex-direction: column-reverse; gap: 3px; min-height: 190px; justify-content: flex-start; }
+  .box { display: block; width: 100%; height: 16px; border-radius: 2px; position: relative; transition: opacity .12s, transform .12s; }
+  a.box:hover { transform: scaleX(1.08); }
+  .box.dim { opacity: .12; }
+  .box::after {
+    content: attr(data-tip); position: absolute; bottom: calc(100% + 6px); left: 50%;
+    transform: translateX(-50%); white-space: nowrap; pointer-events: none;
+    background: rgba(20,22,26,.94); color: #fff; font-size: 11px; font-weight: 500;
+    padding: 6px 9px; border-radius: 6px; z-index: 5; opacity: 0; transition: opacity .12s;
+  }
+  .box:hover::after { opacity: 1; }
+  .wcol-label { font-size: 12px; color: var(--text); font-weight: 700; margin-top: 8px; text-align: center; font-variant-numeric: tabular-nums; }
+  .wcol-label small { display: block; font-size: 11px; color: var(--muted); font-weight: 500; }
+  .wall.proportional .wcol-bars { justify-content: stretch; }
+  .wall.proportional .box { height: auto; flex: 1 1 0; min-height: 2px; }
+
+  /* monthly rhythm */
+  .rhythm { display: flex; align-items: flex-end; gap: 26px; padding: 20px 6px 4px; min-height: 250px; overflow-x: auto; }
+  .rcol { flex: none; width: 52px; display: flex; flex-direction: column; align-items: center; }
+  .rbar { width: 100%; max-width: 46px; display: flex; flex-direction: column-reverse; border-radius: 3px 3px 0 0; overflow: hidden; }
+  .rseg { width: 100%; position: relative; }
+  .rseg::after {
+    content: attr(data-tip); position: absolute; bottom: calc(100% + 6px); left: 50%;
+    transform: translateX(-50%); white-space: nowrap; pointer-events: none;
+    background: rgba(20,22,26,.94); color: #fff; font-size: 11px; font-weight: 500;
+    padding: 6px 9px; border-radius: 6px; z-index: 5; opacity: 0; transition: opacity .12s;
+  }
+  .rseg:hover::after { opacity: 1; }
+  .rcol-label { font-size: 12px; color: var(--text); font-weight: 700; margin-top: 8px; text-align: center; }
+  .rcol-label small { display: block; font-size: 11px; color: var(--muted); font-weight: 500; }
+
+  /* topic split */
+  .splits { padding: 12px 4px 4px; }
+  .split-row { display: flex; align-items: center; gap: 14px; margin: 14px 0; }
+  .split-name { width: 90px; flex: none; font-size: 13px; font-weight: 700; }
+  .split-track { flex: 1; height: 18px; border-radius: 4px; background: #f0f0ee; overflow: hidden; }
+  .split-fill { height: 100%; border-radius: 4px; position: relative; }
+  .split-fill::after {
+    content: attr(data-tip); position: absolute; bottom: calc(100% + 6px); left: 0;
+    white-space: nowrap; pointer-events: none;
+    background: rgba(20,22,26,.94); color: #fff; font-size: 11px; font-weight: 500;
+    padding: 6px 9px; border-radius: 6px; z-index: 5; opacity: 0; transition: opacity .12s;
+  }
+  .split-fill:hover::after { opacity: 1; }
+  .split-num { width: 92px; flex: none; text-align: right; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* ---------- bottom: quick preview + stack + words ---------- */
+  .bottom { margin-top: 56px; padding-top: 36px; border-top: 1px solid var(--border); }
+  .bottom h2 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin: 32px 0 18px; }
+  .bottom h2:first-child { margin-top: 0; }
+
+  /* quick preview — same block language as the archive wall */
+  .qp { display: flex; flex-wrap: wrap; gap: 20px 26px; align-items: flex-start; padding: 8px 2px 4px; }
+  .qp-col { flex: 1 1 150px; min-width: 150px; max-width: 230px; }
+  .qp-head { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+  .qp-head i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; flex: none; }
+  .qp-head small { color: var(--muted); font-weight: 500; font-size: 11px; }
+  .qp-sub { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+  .qp-item {
+    display: block; width: 100%; height: 26px; line-height: 26px;
+    margin-bottom: 5px; padding: 0 9px; border-radius: 3px;
+    background: var(--c); color: #fff; text-decoration: none;
+    font-size: 11px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    position: relative; transition: opacity .15s, transform .15s;
+  }
+  .qp-item:hover { opacity: .86; transform: translateX(2px); }
+  .qp-item::after {
+    content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 6px);
+    transform: translateX(-50%); width: 220px; white-space: normal;
+    background: rgba(20,22,26,.94); color: #fff; font-size: 11px; font-weight: 500; line-height: 1.5;
+    padding: 7px 9px; border-radius: 6px; z-index: 5; opacity: 0; pointer-events: none; transition: opacity .12s;
+  }
+  .qp-item:hover::after { opacity: 1; }
+  .qp-empty { color: var(--muted); font-size: 12px; font-style: italic; }
+  .qp-loading { color: var(--muted); font-size: 14px; padding: 12px 0; }
+
+  /* stack meters */
   .meters { display: grid; gap: 14px; max-width: 560px; }
   .meter .m-row { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; }
   .meter .m-row span:last-child { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .mbar { height: 6px; border-radius: 3px; background: var(--border); margin-top: 6px; overflow: hidden; }
+  .mbar > span { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
 
-  /* ---------- GitHub repos ---------- */
-  #gh-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
-  .repo {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px;
-    text-decoration: none; color: var(--text);
-    display: flex; flex-direction: column; gap: 8px;
-    transition: border-color .15s, transform .15s;
-  }
-  .repo:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .repo .r-title { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
-  .repo .r-desc { font-size: 13px; color: var(--muted); flex: 1; }
-  .repo .r-meta { display: flex; gap: 14px; font-size: 12px; color: var(--muted); font-weight: 600; }
-  .repo-loading { color: var(--muted); font-size: 14px; padding: 12px 0; }
-
-  /* ---------- Word cloud ---------- */
-  .cloud { max-width: 680px; line-height: 2; }
-  .cloud span { margin-right: 14px; color: var(--muted); transition: color .15s; cursor: default; }
+  /* word cloud — wraps and spaces itself */
+  .cloud { display: flex; flex-wrap: wrap; gap: 4px 14px; max-width: 680px; }
+  .cloud span { color: var(--muted); transition: color .15s; cursor: default; line-height: 1.7; word-break: break-word; }
   .cloud span:hover { color: var(--accent); }
 
-  /* ---------- Footer ---------- */
   footer {
-    margin-top: 48px;
-    padding: 40px 0 64px; border-top: 1px solid var(--border);
-    font-size: 13px; color: var(--muted);
-    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    margin-top: 48px; padding: 40px 0 64px; border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
   }
   footer a { color: var(--muted); text-decoration: none; }
   footer a:hover { color: var(--accent); }
+  @media (max-width: 600px) {
+    header { padding-top: 56px; }
+    .panel { padding: 18px; }
+    .summary b { font-size: 18px; }
+    .split-name { width: 74px; }
+    .split-num { width: 74px; }
+  }
 </style>
 </head>
 <body>
@@ -147,107 +183,54 @@
   <header id="top">
     <a class="logo" href="index.html"><span class="dot"></span>SIGHT-LINK.ECO</a>
     <h1>Stats<span class="accent">.</span></h1>
-    <p>What I've built and how it's going — numbers first, then the work itself.</p>
+    <p>A visual diary of everything posted here — one block per update, by month and topic.</p>
   </header>
 
-  <!-- ================= Key numbers ================= -->
-  <h2><span class="num">01</span>By the numbers</h2>
-  <div class="stats-grid">
-    <div class="stat">
-      <div class="value">4</div>
-      <div class="label">Projects shipped</div>
-      <div class="trend">+1 this year</div>
-    </div>
-    <div class="stat">
-      <div class="value">1<span class="unit">paper</span></div>
-      <div class="label">In progress</div>
-      <div class="trend">PP-CDiff</div>
-    </div>
-    <div class="stat">
-      <div class="value">7,200</div>
-      <div class="label">MRI images processed</div>
-      <div class="bar"><span style="width: 100%"></span></div>
-    </div>
-    <div class="stat">
-      <div class="value">3</div>
-      <div class="label">Random seeds per model</div>
-      <div class="trend">Reproducibility</div>
-    </div>
-    <div class="stat">
-      <div class="value">100<span class="unit">M+</span></div>
-      <div class="label">GPU hours saved</div>
-      <div class="bar"><span style="width: 62%"></span></div>
-    </div>
+  <div class="summary" id="summary"></div>
+
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-view="wall">Archive wall</button>
+    <button class="tab" data-view="rhythm">Monthly rhythm</button>
+    <button class="tab" data-view="split">Topic split</button>
   </div>
 
-  <!-- ================= Portfolio ================= -->
-  <h2><span class="num">02</span>Portfolio</h2>
-  <div class="portfolio">
-    <a class="card" href="#" target="_blank" rel="noopener">
-      <div class="thumb">🧠</div>
-      <div class="body">
-        <div class="c-title">PP-CDiff</div>
-        <p class="c-desc">Pathology-preserving conditional diffusion for brain MRI denoising.</p>
-        <div class="c-meta"><span class="tag">Research</span><span>2026</span></div>
-      </div>
-    </a>
-
-    <a class="card" href="#" target="_blank" rel="noopener">
-      <div class="thumb">🌐</div>
-      <div class="body">
-        <div class="c-title">Sight-link.eco</div>
-        <p class="c-desc">This site — a minimal homepage and stats dashboard, built from scratch.</p>
-        <div class="c-meta"><span class="tag">Web</span><span>2026</span></div>
-      </div>
-    </a>
-
-    <a class="card" href="#" target="_blank" rel="noopener">
-      <div class="thumb">📊</div>
-      <div class="body">
-        <div class="c-title">Project Three</div>
-        <p class="c-desc">Replace with your real project: one sentence on what it does.</p>
-        <div class="c-meta"><span class="tag">Tool</span><span>2025</span></div>
-      </div>
-    </a>
-
-    <a class="card" href="#" target="_blank" rel="noopener">
-      <div class="thumb">🧪</div>
-      <div class="body">
-        <div class="c-title">Project Four</div>
-        <p class="c-desc">Replace with your real project: one sentence on what it does.</p>
-        <div class="c-meta"><span class="tag">Experiment</span><span>2025</span></div>
-      </div>
-    </a>
-  </div>
-
-  <!-- ================= GitHub projects (auto-loaded) ================= -->
-  <h2><span class="num">03</span>Live from GitHub</h2>
-  <div id="gh-grid"><div class="repo-loading">Loading repositories…</div></div>
-
-  <!-- ================= Stack / skills ================= -->
-  <h2><span class="num">04</span>Stack</h2>
-  <div class="meters">
-    <div class="meter">
-      <div class="m-row"><span>PyTorch & Diffusion Models</span><span>90%</span></div>
-      <div class="bar"><span style="width: 90%"></span></div>
+  <section class="panel">
+    <div class="panel-head">
+      <span class="count" id="chart-title"></span>
+      <label class="prop" id="prop-wrap"><input type="checkbox" id="prop"> Proportional</label>
     </div>
-    <div class="meter">
-      <div class="m-row"><span>Medical Image Analysis</span><span>80%</span></div>
-      <div class="bar"><span style="width: 80%"></span></div>
-    </div>
-    <div class="meter">
-      <div class="m-row"><span>Python / Scientific Computing</span><span>95%</span></div>
-      <div class="bar"><span style="width: 95%"></span></div>
-    </div>
-    <div class="meter">
-      <div class="m-row"><span>Web Development</span><span>40%</span></div>
-      <div class="bar"><span style="width: 40%"></span></div>
-    </div>
-  </div>
+    <div class="legend" id="legend"></div>
+    <div id="chart"></div>
+    <p class="hint" id="hint"></p>
+  </section>
 
-  <!-- ================= Keyword cloud ================= -->
-  <h2><span class="num">05</span>Most used words</h2>
-  <div class="cloud" id="word-cloud"></div>
+  <section class="bottom">
+    <h2>Quick preview</h2>
+    <div id="quick-preview"><div class="qp-loading">Loading projects…</div></div>
+
+    <h2>Stack</h2>
+    <div class="meters">
+      <div class="meter">
+        <div class="m-row"><span>PyTorch &amp; Diffusion Models</span><span>90%</span></div>
+        <div class="mbar"><span style="width: 90%"></span></div>
+      </div>
+      <div class="meter">
+        <div class="m-row"><span>Medical Image Analysis</span><span>80%</span></div>
+        <div class="mbar"><span style="width: 80%"></span></div>
+      </div>
+      <div class="meter">
+        <div class="m-row"><span>Python / Scientific Computing</span><span>95%</span></div>
+        <div class="mbar"><span style="width: 95%"></span></div>
+      </div>
+      <div class="meter">
+        <div class="m-row"><span>Web Development</span><span>40%</span></div>
+        <div class="mbar"><span style="width: 40%"></span></div>
+      </div>
+    </div>
+
+    <h2>Most used words</h2>
+    <div class="cloud" id="word-cloud"></div>
+  </section>
 
   <footer>
     <span>© 2026 Xiaofei · Sight-link.eco</span>
@@ -258,88 +241,226 @@
 </div>
 
 <script>
-  // Replace with your GitHub username — the page then updates itself
-  // whenever you push new repositories.
-  const GITHUB_USERNAME = "sight-link";
-  const MAX_REPOS = 6;
+  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const TAG_HUE = { life: 24, research: 255, milestone: 150, note: 205 };
+  const state = { view: "wall", proportional: false, activeTag: null, posts: [] };
 
-  const LANG_COLORS = {
-    Python: "#3572A5", JavaScript: "#f1e05a", TypeScript: "#3178c6",
-    HTML: "#e34c26", CSS: "#563d7c", Jupyter: "#DA5B0B",
-    "Jupyter Notebook": "#DA5B0B", C: "#555555", "C++": "#f34b7d",
-    Go: "#00ADD8", Rust: "#dea584", Java: "#b07219", Shell: "#89e051",
-  };
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+  function hashHue(s) { let h = 0; for (const ch of String(s)) h = (h * 31 + ch.charCodeAt(0)) % 360; return h; }
+  function tagColor(t) { const h = TAG_HUE[t] !== undefined ? TAG_HUE[t] : hashHue(t); return "hsl(" + h + ", 72%, 55%)"; }
+  function monthKey(date) { return String(date).slice(0, 7); }
+  function monthLabel(key) { const p = key.split("-"); return MONTHS[+p[1] - 1] + " '" + p[0].slice(2); }
+
+  async function loadPosts() {
+    const res = await fetch("updates.json");
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    return await res.json();
+  }
+
+  function renderSummary(posts) {
+    const tags = new Set(posts.map(p => p.tag || "untagged"));
+    const years = [...new Set(posts.map(p => String(p.date).slice(0, 4)))].sort();
+    const span = years.length > 1 ? years[0] + "–" + years[years.length - 1] : (years[0] || "—");
+    const withImage = posts.filter(p => p.image).length;
+    document.getElementById("summary").innerHTML =
+      "<span><b>" + posts.length + "</b>posts</span>" +
+      "<span><b>" + tags.size + "</b>topics</span>" +
+      "<span><b>" + esc(span) + "</b>active year</span>" +
+      "<span><b>" + withImage + "</b>with image</span>";
+  }
+
+  function renderLegend(posts) {
+    const counts = {};
+    posts.forEach(p => { const t = p.tag || "untagged"; counts[t] = (counts[t] || 0) + 1; });
+    const el = document.getElementById("legend");
+    el.innerHTML = Object.keys(counts).sort().map(t => {
+      const cls = state.activeTag === t ? " active" : (state.activeTag ? " dim" : "");
+      return "<span data-tag=\"" + esc(t) + "\" class=\"" + cls.trim() + "\"><i style=\"background:" + tagColor(t) + "\"></i>" + esc(t) + " " + counts[t] + "</span>";
+    }).join("");
+    el.querySelectorAll("span").forEach(node => {
+      node.addEventListener("click", () => {
+        const t = node.getAttribute("data-tag");
+        state.activeTag = state.activeTag === t ? null : t;
+        render();
+      });
+    });
+  }
+
+  function filtered() {
+    if (!state.activeTag) return state.posts;
+    return state.posts.filter(p => (p.tag || "untagged") === state.activeTag);
+  }
+
+  function groupedByMonth(posts) {
+    const map = {};
+    posts.forEach(p => { const k = monthKey(p.date); (map[k] = map[k] || []).push(p); });
+    return Object.keys(map).sort().map(k => ({ key: k, items: map[k] }));
+  }
+
+  function renderWall(posts) {
+    const groups = groupedByMonth(posts);
+    const chart = document.getElementById("chart");
+    chart.innerHTML = "<div class=\"wall" + (state.proportional ? " proportional" : "") + "\">" + groups.map(g => {
+      const boxes = g.items.map(p => {
+        const t = p.tag || "untagged";
+        const tip = esc(p.date + " · " + p.text + " — " + t);
+        const dim = state.activeTag && state.activeTag !== t ? " dim" : "";
+        const style = "background:" + tagColor(t);
+        if (p.link && /^https?:\/\//i.test(p.link)) {
+          return "<a class=\"box" + dim + "\" style=\"" + style + "\" href=\"" + esc(p.link) + "\" target=\"_blank\" rel=\"noopener\" data-tip=\"" + tip + "\"></a>";
+        }
+        return "<span class=\"box" + dim + "\" style=\"" + style + "\" data-tip=\"" + tip + "\"></span>";
+      }).join("");
+      return "<div class=\"wcol\"><div class=\"wcol-bars\">" + boxes + "</div><div class=\"wcol-label\">" + monthLabel(g.key) + "<small>" + g.items.length + " post" + (g.items.length === 1 ? "" : "s") + "</small></div></div>";
+    }).join("") + "</div>";
+    document.getElementById("chart-title").textContent = posts.length + " posts · one box per post, by month & topic";
+    document.getElementById("hint").textContent = "Hover a block for the title · click a topic in the legend to filter · click a block to open the post";
+    document.getElementById("prop-wrap").style.display = "inline-flex";
+  }
+
+  function renderRhythm(posts) {
+    const groups = groupedByMonth(posts);
+    const max = Math.max(1, ...groups.map(g => g.items.length));
+    document.getElementById("chart").innerHTML = "<div class=\"rhythm\">" + groups.map(g => {
+      const segs = g.items.map((p, i) => {
+        const t = p.tag || "untagged";
+        const dim = state.activeTag && state.activeTag !== t ? " dim" : "";
+        return "<div class=\"rseg" + dim + "\" style=\"background:" + tagColor(t) + ";height:" + (180 / max).toFixed(1) + "px\" data-tip=\"" + esc(t + " · " + p.text) + "\"></div>";
+      }).join("");
+      return "<div class=\"rcol\"><div class=\"rbar\">" + segs + "</div><div class=\"rcol-label\">" + monthLabel(g.key) + "<small>" + g.items.length + "</small></div></div>";
+    }).join("") + "</div>";
+    document.getElementById("chart-title").textContent = posts.length + " posts · how often I publish, by month";
+    document.getElementById("hint").textContent = "Each block is one post, stacked by month, coloured by topic";
+    document.getElementById("prop-wrap").style.display = "none";
+  }
+
+  function renderSplit(posts) {
+    const counts = {};
+    posts.forEach(p => { const t = p.tag || "untagged"; counts[t] = (counts[t] || 0) + 1; });
+    const total = posts.length || 1;
+    const keys = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+    document.getElementById("chart").innerHTML = "<div class=\"splits\">" + keys.map(t => {
+      const pct = counts[t] / total * 100;
+      return "<div class=\"split-row\"><span class=\"split-name\">" + esc(t) + "</span>" +
+        "<div class=\"split-track\"><div class=\"split-fill\" style=\"width:" + pct.toFixed(1) + "%;background:" + tagColor(t) + "\" data-tip=\"" + esc(t + " · " + counts[t] + " of " + posts.length + " posts (" + Math.round(pct) + "%)") + "\"></div></div>" +
+        "<span class=\"split-num\">" + counts[t] + " · " + Math.round(pct) + "%</span></div>";
+    }).join("") + "</div>";
+    document.getElementById("chart-title").textContent = posts.length + " posts · share by topic";
+    document.getElementById("hint").textContent = "Bar length = share of all posts";
+    document.getElementById("prop-wrap").style.display = "none";
+  }
+
+  function render() {
+    const posts = filtered();
+    renderLegend(state.posts);
+    if (state.view === "wall") renderWall(posts);
+    else if (state.view === "rhythm") renderRhythm(posts);
+    else renderSplit(posts);
+  }
+
+  document.getElementById("tabs").addEventListener("click", e => {
+    const btn = e.target.closest(".tab");
+    if (!btn) return;
+    state.view = btn.getAttribute("data-view");
+    document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t === btn));
+    render();
+  });
+  document.getElementById("prop").addEventListener("change", e => {
+    state.proportional = e.target.checked;
+    render();
+  });
+
+  loadPosts().then(posts => {
+    state.posts = posts;
+    renderSummary(posts);
+    render();
+  }).catch(() => {
+    document.getElementById("chart").innerHTML =
+      "<p class=\"hint\">Could not load updates.json. Open this page through a local server or view it online.</p>";
+    document.getElementById("chart-title").textContent = "Stats";
+  });
+
+  const GITHUB_USERNAME = "sight-link";
+
+  // Quick preview: category palette and keyword classifier.
+  // New repos are classified automatically from name + description + topics.
+  const CATEGORIES = [
+    { id: "prototype",  label: "Product prototypes", hue: 24,  sat: 88, lit: 55,
+      kw: ["sight-link", "culturetrade", "portfolio-site", " personal site", "landing page"] },
+    { id: "model",      label: "Model development",  hue: 265, sat: 62, lit: 60,
+      kw: ["diffusion","ddpm","cnn","rnn","lstm","transformer","classif","regression","finbert","forecast","neural","xgboost","svm","naive-bayes","generative","deep-learning","backtest"] },
+    { id: "automation", label: "Automation tools",   hue: 150, sat: 58, lit: 42,
+      kw: ["automat", "workflow", "pipeline tool", "scraper", "crawler", "scheduler", "bot "] },
+    { id: "content",    label: "Content creation",   hue: 330, sat: 68, lit: 58,
+      kw: ["newsletter", "blog", "writing", "article", "content-creation"] },
+    { id: "data",       label: "Data analysis",      hue: 205, sat: 72, lit: 52,
+      kw: [] }, // catch-all below
+  ];
+
+  // Optional: send a work to another platform (Tableau Public, Kaggle, demo site...).
+  // Format: "repo-name": "https://example.com/your-work"
+  // Anything not listed here keeps its GitHub link.
+  const LINK_OVERRIDES = {};
+  function catColor(c) { return "hsl(" + c.hue + ", " + c.sat + "%, " + c.lit + "%)"; }
+  function classify(repo) {
+    const hay = (" " + repo.name + " " + (repo.description || "") + " " + (repo.topics || []).join(" ") + " ").toLowerCase();
+    for (const c of CATEGORIES) {
+      if (c.kw.length && c.kw.some(k => hay.includes(k))) return c;
+    }
+    return CATEGORIES[CATEGORIES.length - 1]; // everything else → data analysis
+  }
 
   async function loadRepos() {
-    const grid = document.getElementById("gh-grid");
+    const box = document.getElementById("quick-preview");
     try {
       const res = await fetch(
-        `https://api.github.com/users/${GITHUB_USERNAME}/repos` +
-        `?sort=updated&per_page=100`,
+        "https://api.github.com/users/" + GITHUB_USERNAME + "/repos?sort=updated&per_page=100",
         { headers: { Accept: "application/vnd.github+json" } }
       );
-      if (!res.ok) throw new Error(`GitHub API ${res.status}`);
-      const repos = await res.json();
+      if (!res.ok) throw new Error("GitHub API " + res.status);
+      const repos = (await res.json()).filter(r => !r.fork);
+      if (!repos.length) { box.innerHTML = '<div class="qp-empty">No public repositories found.</div>'; renderCloud(repos); return; }
 
-      const shown = repos
-        .filter(r => !r.fork)
-        .sort((a, b) => b.stargazers_count - a.stargazers_count
-                        || new Date(b.pushed_at) - new Date(a.pushed_at))
-        .slice(0, MAX_REPOS);
+      const buckets = {};
+      CATEGORIES.forEach(c => buckets[c.id] = []);
+      repos.forEach(r => buckets[classify(r).id].push(r));
 
-      if (!shown.length) {
-        grid.innerHTML = '<div class="repo-loading">No public repositories found.</div>';
-        return;
-      }
-
-      grid.innerHTML = shown.map(r => {
-        const color = LANG_COLORS[r.language] || "#999999";
-        return `
-          <a class="repo" href="${r.html_url}" target="_blank" rel="noopener">
-            <div class="r-title">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="color:var(--muted)">
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
-              </svg>
-              ${r.name}
-            </div>
-            <div class="r-desc">${r.description || "No description provided."}</div>
-            <div class="r-meta">
-              ${r.language ? `<span class="lang" style="--c:${color}"><span class="lang" style="color:${color}">●</span>&nbsp;${r.language}</span>` : ""}
-              <span>★ ${r.stargazers_count}</span>
-              <span>${new Date(r.pushed_at).toISOString().slice(0, 10)}</span>
-            </div>
-          </a>`;
-      }).join("");
-
+      box.innerHTML = '<div class="qp">' + CATEGORIES.filter(c => buckets[c.id].length).map(c => {
+        const items = buckets[c.id]
+          .sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.pushed_at) - new Date(a.pushed_at))
+          .map(r => {
+            const href = LINK_OVERRIDES[r.name] || r.html_url;
+            const tip = r.name + " — " + (r.description || "No description") +
+              (r.language ? " · " + r.language : "") + " · ★ " + r.stargazers_count;
+            return "<a class=\"qp-item\" style=\"--c:" + catColor(c) + "\" href=\"" + esc(href) +
+              "\" target=\"_blank\" rel=\"noopener\" data-tip=\"" + esc(tip) + "\">" + esc(r.name) + "</a>";
+          }).join("");
+        return "<div class=\"qp-col\"><div class=\"qp-head\"><i style=\"background:" + catColor(c) +
+          "\"></i>" + c.label + " <small>" + buckets[c.id].length + "</small></div>" +
+          "<div class=\"qp-sub\">click a block to open</div>" + items + "</div>";
+      }).join("") + '</div>';
       renderCloud(repos);
     } catch (e) {
-      grid.innerHTML =
-        '<div class="repo-loading">Could not load GitHub data. ' +
-        'Set <code>GITHUB_USERNAME</code> in stats.html.</div>';
+      box.innerHTML = '<div class="qp-empty">Could not load GitHub data.</div>';
     }
   }
 
-  // Word cloud from repo descriptions + names (levels.io "Most used words" style)
   const STOPWORDS = new Set(["a","an","the","and","or","of","for","with","to","in","on","by","from","using","based","my","is","are","as","at","it","its","this","that","be","was","were","how","what","data",""]);
   function renderCloud(repos) {
     const counts = {};
     for (const r of repos) {
       const words = (r.name + " " + (r.description || ""))
-        .replace(/[-_/]|(?<=[a-z])(?=[A-Z])/g, " ")
-        .toLowerCase()
-        .match(/[a-z]{3,}/g) || [];
-      for (const w of words) {
-        if (!STOPWORDS.has(w)) counts[w] = (counts[w] || 0) + 1;
-      }
+        .replace(/[-_/]|(?<=[a-z])(?=[A-Z])/g, " ").toLowerCase().match(/[a-z]{3,}/g) || [];
+      for (const w of words) if (!STOPWORDS.has(w)) counts[w] = (counts[w] || 0) + 1;
     }
     const top = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 30);
     if (!top.length) { document.getElementById("word-cloud").textContent = "No descriptions to analyze yet."; return; }
     const max = top[0][1], min = top[top.length - 1][1];
     document.getElementById("word-cloud").innerHTML = top.map(([w, n]) => {
       const t = max === min ? 0.6 : (n - min) / (max - min);
-      const size = (14 + t * 24).toFixed(0);
-      const weight = t > 0.66 ? 800 : t > 0.33 ? 600 : 500;
-      return `<span style="font-size:${size}px;font-weight:${weight}">${w}</span>`;
+      return "<span style=\"font-size:" + (14 + t * 24).toFixed(0) + "px;font-weight:" + (t > 0.66 ? 800 : t > 0.33 ? 600 : 500) + "\">" + esc(w) + "</span>";
     }).join("");
   }
 
