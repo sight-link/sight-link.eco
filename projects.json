@@ -1,0 +1,133 @@
+[
+  {
+    "date": "2026-10-11",
+    "title": "ESG & financial performance EDA",
+    "category": "data",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/esg-fin-eda",
+    "desc": "Reproducible ESG and financial performance EDA with pandas / seaborn / scipy, 4 visualizations, synthetic dataset (n=1000, 9 industries, 2015-2025)."
+  },
+  {
+    "date": "2026-08-09",
+    "title": "World population geospatial map",
+    "category": "data",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/geospatial_viz_world-population-map",
+    "desc": "Global population geospatial visualization built with GeoPandas and Folium."
+  },
+  {
+    "date": "2026-07-11",
+    "title": "Global climate warming analysis",
+    "category": "data",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/Global-Climate-Warming-Analysis",
+    "desc": "Data-driven replication of global warming trends (1750-2015) using Berkeley Earth surface temperature records."
+  },
+  {
+    "date": "2026-07-06",
+    "title": "Global social media user behaviors",
+    "category": "data",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/Global-Social-Media-User-Behaviors",
+    "desc": "EDA of global social media user behavior with Plotly interactive charts - platform usage, demographics and social-media vs sleep correlation."
+  },
+  {
+    "date": "2026-07-06",
+    "title": "PCA exploratory analysis for breast cancer",
+    "category": "data",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/PCA-Exploratory-Analysis-for-Breast-Cancer",
+    "desc": "PCA-based exploratory analysis of the Wisconsin Breast Cancer dataset, visualizing malignant vs benign separation with scikit-learn."
+  },
+  {
+    "date": "2026-06-26",
+    "title": "Data-viz aesthetics study",
+    "category": "data",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/Data-viz-aesthetics-study",
+    "desc": "Does beautiful data visualization actually perform better? Statistical analysis of aesthetic-usability trade-offs in data viz."
+  },
+
+  {
+    "date": "2026-10-11",
+    "title": "FinBERT ESG sentence classification",
+    "category": "model",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/esg-fintext-demo",
+    "desc": "FinBERT-based E/S/G sentence-level classification on real Chinese financial ESG news (FinESG dataset, ACL 2022)."
+  },
+  {
+    "date": "2026-08-13",
+    "title": "DDPM handwritten digit generation",
+    "category": "model",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/DDPM-Handwritten-Digit-Image-Generation",
+    "desc": "PyTorch implementation of DDPM to generate MNIST handwritten digits, with loss curve and sample grid plotting."
+  },
+  {
+    "date": "2026-08-13",
+    "title": "Amazon review sentiment classification",
+    "category": "model",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/Amazon-Review-Sentiment-Classification",
+    "desc": "Sentiment analysis using TF-IDF, Naive Bayes, SVM and XGBoost, with word cloud, t-SNE and confusion matrix visualization."
+  },
+  {
+    "date": "2026-08-10",
+    "title": "Heart disease LDA / logistic regression",
+    "category": "model",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/heart-diagnosis-lda-logistic-regression",
+    "desc": "Mathematical foundations of probabilistic and geometric classifiers for medical heart disease diagnosis."
+  },
+  {
+    "date": "2026-08-10",
+    "title": "CNN vs RNN for text classification",
+    "category": "model",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/Comparison-of-CNN-and-RNN-in-text-classification",
+    "desc": "Comparison of convolutional and recurrent architectures on a text classification task."
+  },
+  {
+    "date": "2026-08-09",
+    "title": "Stock price forecasting & backtesting",
+    "category": "model",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/Stock-Price-Forecasting-Algorithmic-Backtesting",
+    "desc": "SPY next-day forecast (Logistic / SVR / LSTM) and long-only manual backtesting in Python."
+  },
+  {
+    "date": "2026-07-11",
+    "title": "SPY ETF price forecasting",
+    "category": "model",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/SPY-ETF-Price-Forecasting",
+    "desc": "Price forecasting experiments on the SPY ETF."
+  },
+
+  {
+    "date": "2026-11-18",
+    "title": "Sight-link.eco rebuilt",
+    "category": "milestone",
+    "platform": "Site",
+    "url": "https://eco.sightlink.workers.dev/",
+    "desc": "Personal site rebuilt around a single JSON data source, with a visualized stats page and activity-based project archive."
+  },
+  {
+    "date": "2026-11-14",
+    "title": "CultureTrade",
+    "category": "milestone",
+    "platform": "GitHub",
+    "url": "https://github.com/sight-link/CultureTrade",
+    "desc": "A culture-trade product prototype."
+  },
+
+  {
+    "date": "2026-08-14",
+    "title": "GBBO star baker Tableau dashboard",
+    "category": "business",
+    "platform": "Tableau Public",
+    "url": "https://public.tableau.com/app/profile/",
+    "desc": "Interactive Tableau dashboard for GBBO star baker performance ranking and contestant score trend analysis."
+  }
+]
