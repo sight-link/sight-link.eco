@@ -65,6 +65,7 @@
     background: #edf0f2; border: 1px solid var(--border);
   }
   .post-thumb.placeholder { border-color: transparent; }
+  .thumb-link { display: block; line-height: 0; }
   .post-title-wrap { position: relative; }
   .post-title {
     display: block; font-size: 16px; font-weight: 400; line-height: 1.5;
@@ -74,7 +75,7 @@
     display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
     line-clamp: 2; overflow: hidden; text-decoration: none; color: inherit;
   }
-  .post-title-text.clamped { padding-right: 96px; }
+  .post-title-text.clamped { padding-right: 78px; }
   .post-title-text.expanded { -webkit-line-clamp: unset; line-clamp: unset; overflow: visible; padding-right: 0; }
   .post-toggle {
     position: absolute; right: 0; bottom: 0;
@@ -85,8 +86,6 @@
     cursor: pointer; white-space: nowrap;
   }
   .post-toggle.show { display: inline-flex; }
-  .post-toggle .chev { transition: transform .15s ease; }
-  .post-toggle.expanded .chev { transform: rotate(180deg); }
   .post-toggle:hover .lbl { text-decoration: underline; }
   a.post-title-text:hover { text-decoration: underline; }
   .post-tag {
@@ -178,9 +177,18 @@
 
   // Tolerate an old typo where the image path was used as a JSON key instead of "image".
   function imageOf(it) {
+    if (Array.isArray(it.images) && it.images.length) return it.images.find(Boolean) || "";
     if (it.image) return it.image;
     const stray = Object.keys(it).find(k => /^images?\//i.test(k));
     return stray || "";
+  }
+
+  // Same stable id as post.html, so list links keep working after reordering.
+  function postId(it) {
+    const s = String(it.date) + "|" + String(it.text);
+    let h = 2166136261;
+    for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return String(it.date) + "-" + (h >>> 0).toString(16).padStart(8, "0");
   }
 
   function renderPosts(items) {
@@ -188,16 +196,15 @@
     const list = items.slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
 
     el.innerHTML = list.map(it => {
+      const href = `post.html?id=${encodeURIComponent(postId(it))}`;
       const image = imageOf(it);
-      const thumb = image
+      const thumbInner = image
         ? `<img class="post-thumb" src="${esc(image)}" alt="${esc(it.text)}" loading="lazy">`
         : `<span class="post-thumb placeholder" aria-hidden="true"></span>`;
+      const thumb = `<a class="thumb-link" href="${href}" aria-label="Read: ${esc(it.text)}">${thumbInner}</a>`;
       const text = `<span class="post-title-text">${esc(it.text)}</span>`;
-      const title = it.link
-        ? `<a class="post-title" href="${esc(it.link)}" target="_blank" rel="noopener">${text}</a>`
-        : `<div class="post-title">${text}</div>`;
-      const chevron = `<svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-      const toggle = `<button class="post-toggle" type="button" aria-expanded="false">${chevron}<span class="lbl">Show more</span></button>`;
+      const title = `<a class="post-title" href="${href}">${text}</a>`;
+      const toggle = `<button class="post-toggle" type="button" aria-expanded="false"><span class="lbl">...more</span></button>`;
       const tag = it.tag ? `<span class="post-tag">${esc(it.tag)}</span>` : "";
       return `
         <div class="post">
@@ -228,7 +235,7 @@
       btn.addEventListener("click", () => {
         const expanded = textEl.classList.toggle("expanded");
         btn.classList.toggle("expanded", expanded);
-        btn.querySelector(".lbl").textContent = expanded ? "Show less" : "Show more";
+        btn.querySelector(".lbl").textContent = expanded ? "...less" : "...more";
         btn.setAttribute("aria-expanded", expanded ? "true" : "false");
         btn.classList.add("show");
       });
